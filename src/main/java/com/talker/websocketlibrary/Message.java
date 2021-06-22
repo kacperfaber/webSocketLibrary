@@ -1,13 +1,17 @@
 package com.talker.websocketlibrary;
 
-public abstract class Message {
-    protected String rawText;
+public class Message {
+    final String name;
+    final String dataText;
 
-    public Message(String rawText) {
-        this.rawText = rawText;
+    public Message(String name, String dataText) {
+        this.name = name;
+        this.dataText = dataText;
     }
 
     public String getRawText() {
-        return rawText;
+        return dataText;
     }
+
+    public String getName() { return name; }
 }

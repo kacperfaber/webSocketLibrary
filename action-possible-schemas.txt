@@ -1,8 +1,3 @@
 // possible action schemas:
-// 1: void x(String rawText)
-// 2: void x(String rawText, String userId)
-// 3: void x(ClientMessage message)
-// 4: ResponseMessage x(String rawText, String userId)
-// 5: ResponseMessage x(ClientMessage msg)
-// 6: ResponseMessage x(ClientMessage msg, <Any class that extends body base> x)
-// 7: void x(ClientMessage, <Any class that extends body base> x)
+// 1: void x(MessageWithData<T> message)
+// 2: void x(Message msg)
