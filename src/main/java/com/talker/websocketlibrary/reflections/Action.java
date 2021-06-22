@@ -1,10 +1,9 @@
 package com.talker.websocketlibrary.reflections;
 
-import java.lang.annotation.Annotation;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 @Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Action {
     public String value() default "";
 }

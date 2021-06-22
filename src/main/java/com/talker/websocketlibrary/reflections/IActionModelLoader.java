@@ -4,8 +4,6 @@ import com.talker.websocketlibrary.ControllerBase;
 
 import java.lang.reflect.Method;
 
-public class ActionModel {
-    Class<? extends ControllerBase> controllerClass;
-    Method method;
-    Action actionAnnotation;
+public interface IActionModelLoader {
+    ActionModel load(Method method, Class<? extends ControllerBase> controllerClass);
 }
