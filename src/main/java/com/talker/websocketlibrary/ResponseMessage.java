@@ -1,14 +1,24 @@
 package com.talker.websocketlibrary;
 
-public class ResponseMessage extends Message {
+public class ResponseMessage {
+    Class<?> dataClass;
+    Object data;
 
-    String targetUserId;
-
-    public ResponseMessage(String rawText, String targetUserId) {
-        super(rawText);
+    public <T> ResponseMessage(T data, Class<T> dataClass) {
+        this.data = data;
+        this.dataClass = dataClass;
     }
 
-    public String getTargetUserId() {
-        return targetUserId;
+    public <T> void setData(T data, Class<T> dataClass) {
+        this.data = data;
+        this.dataClass = dataClass;
+    }
+
+    public Class<?> getDataClass() {
+        return dataClass;
+    }
+
+    public Object getData() {
+        return data;
     }
 }
