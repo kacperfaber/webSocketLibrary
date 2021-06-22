@@ -1,4 +1,4 @@
-package com.talker.websocketlibrary;
+package com.talker.websocketlibrary.reflections;
 
 import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
