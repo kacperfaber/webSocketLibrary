@@ -1,15 +1,17 @@
 package com.talker.websocketlibrary;
 
+import com.talker.websocketlibrary.messaging.Session;
+
 public abstract class ControllerBase {
     public <T> void send(String userId, String name, T data) {
         throw new UnsupportedOperationException();
     }
 
-    public void send(String userId, String name) {
+    public void send(Session session, String name) {
        throw new UnsupportedOperationException();
     }
 
-    public void sendText(String userId, String name, String text) {
+    public void sendText(Session session, String name, String text) {
         throw new UnsupportedOperationException();
     }
 
