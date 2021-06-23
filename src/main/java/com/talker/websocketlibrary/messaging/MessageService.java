@@ -1,0 +1,19 @@
+package com.talker.websocketlibrary.messaging;
+
+import org.springframework.web.socket.WebSocketSession;
+
+import java.io.IOException;
+
+public class MessageService {
+    public SessionService sessionService;
+    public IMessageWriter messageWriter;
+
+    public void sendMessage(String userId, String name, Object data) throws IOException {
+        MessageToSend messageToSend = new MessageToSend(name, data);
+        String messageText = messageWriter.writeMessage(messageToSend);
+        UserSession userSession = sessionService.getUserSession(userId);
+        for (WebSocketSession session : userSession.getSessions()){
+            sessionService.sendRawMessage(session, messageText);
+        }
+    }
+}

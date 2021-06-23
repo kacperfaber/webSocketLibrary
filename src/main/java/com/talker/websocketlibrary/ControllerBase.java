@@ -1,5 +1,6 @@
 package com.talker.websocketlibrary;
 
+import com.talker.websocketlibrary.messaging.IMessageWriter;
 import com.talker.websocketlibrary.messaging.SessionService;
 import com.talker.websocketlibrary.messaging.UserSession;
 
