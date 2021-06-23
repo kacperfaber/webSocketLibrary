@@ -1,3 +1,3 @@
 // possible action schemas:
-// 1: void x(MessageWithData<T> message)
-// 2: void x(Message msg)
+// 1: void x(CommandWithData<T> command)
+// 2: void x(Command command)
