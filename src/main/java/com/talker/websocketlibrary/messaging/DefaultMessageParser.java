@@ -1,7 +1,5 @@
 package com.talker.websocketlibrary.messaging;
 
-import com.talker.websocketlibrary.Message;
-import com.talker.websocketlibrary.MessageWithData;
 import com.talker.websocketlibrary.binding.BindingResult;
 import com.talker.websocketlibrary.binding.IDataBinder;
 

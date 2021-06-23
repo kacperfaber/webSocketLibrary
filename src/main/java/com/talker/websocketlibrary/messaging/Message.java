@@ -1,4 +1,4 @@
-package com.talker.websocketlibrary;
+package com.talker.websocketlibrary.messaging;
 
 public class Message {
     final String name;
