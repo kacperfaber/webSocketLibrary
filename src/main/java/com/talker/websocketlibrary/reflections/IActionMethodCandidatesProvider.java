@@ -5,6 +5,6 @@ import com.talker.websocketlibrary.ControllerBase;
 import java.lang.reflect.Method;
 import java.util.List;
 
-public interface IActionMethodsProvider {
+public interface IActionMethodCandidatesProvider {
     List<Method> provide(Class<? extends ControllerBase> controllerClass);
 }

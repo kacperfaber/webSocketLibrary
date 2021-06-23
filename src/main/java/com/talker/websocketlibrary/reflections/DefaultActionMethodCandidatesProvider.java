@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
-public class DefaultActionMethodsProvider implements IActionMethodsProvider{
+public class DefaultActionMethodCandidatesProvider implements IActionMethodCandidatesProvider {
     @Override
     public List<Method> provide(Class<? extends ControllerBase> controllerClass) {
         return Arrays
