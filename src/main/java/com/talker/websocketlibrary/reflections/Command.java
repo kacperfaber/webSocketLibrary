@@ -9,4 +9,20 @@ public abstract class Command {
         this.dataText = dataText;
         this.userId = userId;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getRawText() {
+        return rawText;
+    }
+
+    public String getDataText() {
+        return dataText;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
 }

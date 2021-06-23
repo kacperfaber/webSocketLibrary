@@ -9,4 +9,12 @@ public class CommandWithData<T> extends Command {
         this.data = data;
         this.dataClass = dataClass;
     }
+
+    public T getData() {
+        return data;
+    }
+
+    public Class<T> getDataClass() {
+        return dataClass;
+    }
 }
