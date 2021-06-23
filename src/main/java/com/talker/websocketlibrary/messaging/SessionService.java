@@ -17,7 +17,6 @@ public abstract class SessionService {
         session.close();
     }
 
-    // TODO: This class should not has that method, he has to just send to specified socket.
     public void sendRawMessage(WebSocketSession session, String rawText) throws IOException {
         session.sendMessage(new TextMessage(rawText));
     }
