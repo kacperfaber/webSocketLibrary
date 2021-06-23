@@ -1,21 +1,27 @@
 package com.talker.websocketlibrary;
 
-import com.talker.websocketlibrary.messaging.Session;
-
 public abstract class ControllerBase {
-    public <T> void send(String userId, String name, T data) {
+    public <T> void send(String userId, String name, T data, Class<T> dataClass) {
         throw new UnsupportedOperationException();
     }
 
-    public void send(Session session, String name) {
-       throw new UnsupportedOperationException();
-    }
-
-    public void sendText(Session session, String name, String text) {
+    public void send(String userId, String name) {
         throw new UnsupportedOperationException();
     }
 
-    public <T> void broadcast(String name, T data) {
+    public void sendText(String userId, String name, String text) {
+        throw new UnsupportedOperationException();
+    }
+
+    public <T> void sendToWebSocketSession(String sessionId, String name, T data, Class<T> dataClass) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void sendToWebSocketSession(String sessionId, String name, String text) {
+        throw new UnsupportedOperationException();
+    }
+
+    public <T> void broadcast(String name, T data, Class<T> dataClass) {
         throw new UnsupportedOperationException();
     }
 
@@ -23,7 +29,7 @@ public abstract class ControllerBase {
         throw new UnsupportedOperationException();
     }
 
-    public <T> void broadcastToEveryone(String name, T data) {
+    public <T> void broadcastToEveryone(String name, T data, Class<T> dataClass) {
         throw new UnsupportedOperationException();
     }
 
