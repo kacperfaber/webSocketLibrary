@@ -18,20 +18,20 @@ public class DefaultMessageParser implements IMessageParser {
 
     @Override
     public Message read(String text, String userId) {
-        Pattern pattern = Pattern.compile("^(?<name>[A-Za-z/]+]) (?<data>.+)$");
+        Pattern pattern = Pattern.compile("^(?<name>[A-Za-z_-]+]) (?<data>.+)$");
         Matcher match = pattern.matcher(text);
         String name = match.group("name");
         String data = match.group("data");
-        return new Message(name, data);
+        return new Message(name, data, text);
     }
 
     @Override
     public <T> MessageWithData<T> read(String text, String userId, Class<T> dataClass) {
-        Pattern pattern = Pattern.compile("^(?<name>[A-Za-z/]+]) (?<data>.+)$");
+        Pattern pattern = Pattern.compile("^(?<name>[A-Za-z_-]+]) (?<data>.+)$");
         Matcher match = pattern.matcher(text);
         String name = match.group("name");
         String data = match.group("data");
         BindingResult<T> bind = dataBinder.bind(data, dataClass);
-        return new MessageWithData<T>(name, data, bind.data, bind.dataClass);
+        return new MessageWithData<T>(name, data, text, bind.data, bind.dataClass);
     }
 }
