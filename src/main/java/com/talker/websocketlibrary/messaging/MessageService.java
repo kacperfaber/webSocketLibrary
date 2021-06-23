@@ -1,9 +1,11 @@
 package com.talker.websocketlibrary.messaging;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
 
+@Component
 public class MessageService {
     public SessionService sessionService;
     public IMessageWriter messageWriter;

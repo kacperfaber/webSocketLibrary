@@ -1,12 +1,14 @@
 package com.talker.websocketlibrary.messaging;
 
 import com.talker.websocketlibrary.binding.IDataBinder;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Component
 public class DefaultMessageReader implements IMessageReader {
-
     public IDataBinder dataBinder;
 
     public DefaultMessageReader(IDataBinder dataBinder) {

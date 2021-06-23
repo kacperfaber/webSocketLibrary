@@ -1,5 +1,6 @@
 package com.talker.websocketlibrary.messaging;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -10,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class SessionService {
+@Component
+public class SessionService {
     final List<UserSession> sessions = new ArrayList<>();
 
     public void disconnect(WebSocketSession session) throws IOException {
