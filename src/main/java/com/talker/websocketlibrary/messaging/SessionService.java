@@ -17,7 +17,7 @@ public abstract class SessionService {
         session.close();
     }
 
-    public void sendMessage(UserSession session, String text) throws IOException {
+    public void sendRawMessage(UserSession session, String text) throws IOException {
         for (WebSocketSession sess : session.getSessions()) {
             sess.sendMessage(new TextMessage(text));
         }
