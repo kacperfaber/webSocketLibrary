@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 version="3.0">
+
+    <entity class="com.talker.websocketlibrary.database.User">
+        <table name="users" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="ID"/>
+            </id>
+            <basic name="email">
+                <column name="EMAIL"/>
+            </basic>
+            <basic name="username">
+                <column name="USERNAME"/>
+            </basic>
+            <basic name="passwordHash">
+                <column name="PASSWORD_HASH"/>
+            </basic>
+            <basic name="displayName">
+                <column name="DISPLAY_NAME"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>
