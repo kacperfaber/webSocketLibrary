@@ -19,8 +19,15 @@ public class SessionService {
         session.close();
     }
 
-    public void sendRawMessage(WebSocketSession session, String rawText) throws IOException {
-        session.sendMessage(new TextMessage(rawText));
+    public boolean sendRawMessage(WebSocketSession session, String rawText) {
+        try {
+            session.sendMessage(new TextMessage(rawText));
+            return true;
+        }
+
+        catch (IOException e) {
+            return false;
+        }
     }
 
     public UserSession getUserSession(String userId) {

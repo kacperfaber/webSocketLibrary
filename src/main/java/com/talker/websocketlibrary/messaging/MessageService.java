@@ -10,21 +10,27 @@ public class MessageService {
     public SessionService sessionService;
     public IMessageWriter messageWriter;
 
-    public <T> void sendMessage(String userId, String name, T data) throws IOException {
+    public <T> boolean sendMessage(String userId, String name, T data) {
         SendMessage sendMessage = new SendMessage(name, data);
         String messageText = messageWriter.writeMessage(sendMessage);
         UserSession userSession = sessionService.getUserSession(userId);
         for (WebSocketSession session : userSession.getSessions()){
-            sessionService.sendRawMessage(session, messageText);
+            if (!sessionService.sendRawMessage(session, messageText)){
+                return false;
+            }
         }
+        return true;
     }
 
-    public void sendMessage(String userId, String name) throws IOException {
+    public boolean sendMessage(String userId, String name) {
         SendMessage sendMessage = new SendMessage(name);
         String messageText = messageWriter.writeMessage(sendMessage);
         UserSession userSession = sessionService.getUserSession(userId);
         for (WebSocketSession session : userSession.getSessions()){
-            sessionService.sendRawMessage(session, messageText);
+            if (!sessionService.sendRawMessage(session, messageText)) {
+                return false;
+            }
         }
+        return true;
     }
 }
