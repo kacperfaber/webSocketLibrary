@@ -12,8 +12,8 @@ public class DefaultMessageWriter implements IMessageWriter{
     }
 
     @Override
-    public String writeMessage(MessageToSend messageToSend) {
-        String data = dataWriter.writeData(messageToSend.data);
-        return messageToSend.name + " " + data;
+    public String writeMessage(SendMessage sendMessage) {
+        String data = dataWriter.writeData(sendMessage.data);
+        return sendMessage.name + " " + data;
     }
 }

@@ -11,8 +11,8 @@ public class MessageService {
     public IMessageWriter messageWriter;
 
     public <T> void sendMessage(String userId, String name, T data) throws IOException {
-        MessageToSend messageToSend = new MessageToSend(name, data);
-        String messageText = messageWriter.writeMessage(messageToSend);
+        SendMessage sendMessage = new SendMessage(name, data);
+        String messageText = messageWriter.writeMessage(sendMessage);
         UserSession userSession = sessionService.getUserSession(userId);
         for (WebSocketSession session : userSession.getSessions()){
             sessionService.sendRawMessage(session, messageText);
@@ -20,8 +20,8 @@ public class MessageService {
     }
 
     public void sendMessage(String userId, String name) throws IOException {
-        MessageToSend messageToSend = new MessageToSend(name);
-        String messageText = messageWriter.writeMessage(messageToSend);
+        SendMessage sendMessage = new SendMessage(name);
+        String messageText = messageWriter.writeMessage(sendMessage);
         UserSession userSession = sessionService.getUserSession(userId);
         for (WebSocketSession session : userSession.getSessions()){
             sessionService.sendRawMessage(session, messageText);
