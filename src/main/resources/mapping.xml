@@ -3,7 +3,7 @@
                  version="3.0">
 
     <entity class="com.talker.websocketlibrary.database.User">
-        <table name="users" schema="main" catalog=""/>
+        <table name="users" schema="main"/>
         <attributes>
             <id name="id">
                 <column name="ID"/>

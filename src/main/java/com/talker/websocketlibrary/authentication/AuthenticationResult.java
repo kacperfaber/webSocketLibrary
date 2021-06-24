@@ -8,7 +8,7 @@ public class AuthenticationResult {
 
     public AuthenticationResult(boolean success, String userId) {
         this.userId = userId;
-        this.success=success;
+        this.success = success;
     }
 
     public boolean isSuccess() {
