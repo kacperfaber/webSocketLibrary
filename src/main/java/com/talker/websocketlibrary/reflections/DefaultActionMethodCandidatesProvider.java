@@ -1,6 +1,6 @@
 package com.talker.websocketlibrary.reflections;
 
-import com.talker.websocketlibrary.ControllerBase;
+import com.talker.websocketlibrary.reflections.annotations.SocketAction;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -10,10 +10,10 @@ import java.util.List;
 @Component
 public class DefaultActionMethodCandidatesProvider implements IActionMethodCandidatesProvider {
     @Override
-    public List<Method> provide(Class<? extends ControllerBase> controllerClass) {
+    public List<Method> provide(Class<?> actionClass) {
         return Arrays
-                .stream(controllerClass.getDeclaredMethods())
-                .filter(i -> i.getDeclaredAnnotation(Action.class) != null)
+                .stream(actionClass.getDeclaredMethods())
+                .filter(i -> i.getDeclaredAnnotation(SocketAction.class) != null)
                 .toList();
     }
 }

@@ -1,11 +1,11 @@
 package com.talker.websocketlibrary.reflections;
 
-import com.talker.websocketlibrary.ControllerBase;
+import com.talker.websocketlibrary.reflections.annotations.SocketAction;
 
 import java.lang.reflect.Method;
 
 public class ActionModel {
-    Class<? extends ControllerBase> controllerClass;
+    Class<?> actionClass;
     Method method;
-    Action actionAnnotation;
+    SocketAction socketActionAnnotation;
 }
