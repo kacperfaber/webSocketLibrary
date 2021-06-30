@@ -1,6 +1,5 @@
 package com.talker.websocketlibrary.reflections;
 
-import com.talker.websocketlibrary.ControllerBase;
 import org.reflections.Reflections;
 import org.springframework.stereotype.Component;
 
