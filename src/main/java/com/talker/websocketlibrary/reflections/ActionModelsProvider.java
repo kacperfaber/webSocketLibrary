@@ -1,6 +1,5 @@
 package com.talker.websocketlibrary.reflections;
 
-import com.talker.websocketlibrary.ControllerBase;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -10,11 +9,11 @@ import java.util.Set;
 
 @Component
 public class ActionModelsProvider implements IActionModelsProvider {
-    public IAllClassesProvider classesProvider;
+    public IAnnotatedClassesProvider classesProvider;
     public IActionModelLoader actionModelLoader;
     public IActionMethodCandidatesProvider methodsProvider;
 
-    public ActionModelsProvider(IAllClassesProvider classesProvider, IActionModelLoader actionModelLoader, IActionMethodCandidatesProvider methodsProvider) {
+    public ActionModelsProvider(IAnnotatedClassesProvider classesProvider, IActionModelLoader actionModelLoader, IActionMethodCandidatesProvider methodsProvider) {
         this.classesProvider = classesProvider;
         this.actionModelLoader = actionModelLoader;
         this.methodsProvider = methodsProvider;

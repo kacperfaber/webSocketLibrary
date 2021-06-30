@@ -1,12 +1,3 @@
-package com.talker.websocketlibrary;
-
-import com.talker.websocketlibrary.messaging.MessageService;
-import com.talker.websocketlibrary.messaging.SessionService;
-import com.talker.websocketlibrary.messaging.UserSession;
-import org.springframework.web.socket.WebSocketSession;
-
-import java.io.IOException;
-
 public abstract class ControllerBase {
     public MessageService messageService;
     public SessionService sessionService;

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 
 @Component
-public class AllClassesProvider implements IAllClassesProvider {
+public class AnnotatedClassesProvider implements IAnnotatedClassesProvider {
     @Override
     public Set<Class<?>> provide() {
         Reflections reflections = new Reflections("com.talker", new TypeAnnotationsScanner(), new SubTypesScanner());
