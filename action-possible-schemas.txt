@@ -1,3 +1,7 @@
-// possible action schemas:
-// 1: void x(CommandWithData<T> command)
-// 2: void x(Command command)
+@SocketController
+class PingController extends ControllerBase {
+    @SocketAction("ping")
+    public void ping(Command command) {
+        // ..
+    }
+}

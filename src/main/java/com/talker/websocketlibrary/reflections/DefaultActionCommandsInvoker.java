@@ -11,6 +11,8 @@ public class DefaultActionCommandsInvoker implements IActionCommandsInvoker {
     @Override
     public void invokeAll(Model model, Message message) {
         List<ActionModel> actionModels = filteredActionModelsProvider.provide(model, message);
-        // TODO: How to invoke method? XD
+        for (ActionModel actionModel : actionModels) {
+
+        }
     }
 }
