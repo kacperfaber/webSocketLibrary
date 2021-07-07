@@ -17,7 +17,7 @@ public class DefaultMessageReader implements IMessageReader {
 
     @Override
     public Message read(String text, String userId) {
-        Pattern pattern = Pattern.compile("^(?<name>[A-Za-z_-]+) (?<data>.+)$");
+        Pattern pattern = Pattern.compile("^(?<name>.+) (?<data>.+)$");
         Matcher match = pattern.matcher(text);
         String name = match.group("name");
         String data = match.group("data");

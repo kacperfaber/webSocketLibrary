@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketMessage;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 
 @Component
@@ -35,8 +36,12 @@ public class BaseAuthenticatedMessageReceivedEventHandler implements IEventHandl
         Optional<WebSocketMessage> optionalMessage = handlerEvent.getMessage();
         if (optionalMessage.isPresent()) {
             WebSocketMessage webSocketMessage = optionalMessage.get();
-            Message message = reader.read(webSocketMessage.toString(), handlerEvent.authenticatedUserId);
-            actionCommandsInvoker.invokeAll(model, message, handlerEvent);
+            Message message = reader.read(webSocketMessage.getPayload().toString(), handlerEvent.authenticatedUserId);
+            try {
+                actionCommandsInvoker.invokeAll(model, message, handlerEvent);
+            } catch (InvocationTargetException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

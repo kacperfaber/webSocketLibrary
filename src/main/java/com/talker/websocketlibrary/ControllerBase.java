@@ -3,12 +3,15 @@ package com.talker.websocketlibrary;
 import com.talker.websocketlibrary.messaging.MessageService;
 import com.talker.websocketlibrary.messaging.SessionService;
 import com.talker.websocketlibrary.messaging.UserSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
 
 public abstract class ControllerBase {
+    @Autowired
     public MessageService messageService;
+    @Autowired
     public SessionService sessionService;
 
     public <T> void send(String userId, String name, T data, Class<T> dataClass) throws IOException {

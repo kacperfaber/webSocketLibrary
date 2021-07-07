@@ -5,6 +5,7 @@ import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
 
 import java.util.List;
 
@@ -12,6 +13,11 @@ import java.util.List;
 public class BaseMessageHandler implements WebSocketHandler {
     IHandlerEventGenerator handlerEventGenerator;
     List<IEventHandler> eventHandlers;
+
+    public BaseMessageHandler(IHandlerEventGenerator handlerEventGenerator, List<IEventHandler> eventHandlers) {
+        this.handlerEventGenerator = handlerEventGenerator;
+        this.eventHandlers = eventHandlers;
+    }
 
     void handle(WebSocketSession session, WebSocketMessage message, CloseStatus status, HandlerEventKind handlerEventKind) {
         final HandlerEvent handlerEvent = handlerEventGenerator.generate(session, message, status, handlerEventKind);
