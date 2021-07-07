@@ -11,12 +11,22 @@ public class HandlerEvent {
     CloseStatus closeStatus;
     WebSocketMessage message;
     HandlerEventKind kind;
+    String authenticatedUserId;
 
-    public HandlerEvent(HandlerEventKind handlerEventKind, WebSocketSession session, CloseStatus closeStatus, WebSocketMessage message) {
+    public Optional<String> getAuthenticatedUserId() {
+        return Optional.of(authenticatedUserId);
+    }
+
+    public boolean isAuthenticated() {
+        return authenticatedUserId == null;
+    }
+
+    public HandlerEvent(HandlerEventKind handlerEventKind, WebSocketSession session, CloseStatus closeStatus, WebSocketMessage message, String authenticatedUserId) {
         this.kind = handlerEventKind;
         this.session = session;
         this.closeStatus = closeStatus;
         this.message = message;
+        this.authenticatedUserId = authenticatedUserId;
     }
 
     public WebSocketSession getSession() {

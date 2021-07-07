@@ -1,6 +1,6 @@
 package com.talker.websocketlibrary.handlers;
 
 public interface IEventHandler {
-    boolean canHandle(HandlerEventKind handlerEventKind);
+    boolean canHandle(HandlerEvent handlerEvent);
     void handle(HandlerEvent handlerEvent);
 }
