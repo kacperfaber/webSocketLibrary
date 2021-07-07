@@ -4,6 +4,8 @@ import com.talker.websocketlibrary.messaging.IMessageReader;
 import com.talker.websocketlibrary.messaging.Message;
 import com.talker.websocketlibrary.reflections.IActionCommandsInvoker;
 import com.talker.websocketlibrary.reflections.Model;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketMessage;
 
