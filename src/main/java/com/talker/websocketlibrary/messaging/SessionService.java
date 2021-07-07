@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class SessionService {
@@ -44,5 +45,24 @@ public class SessionService {
         else {
             userSession.addSession(webSocketSession);
         }
+    }
+
+    public List<WebSocketSession> getAllSessions() {
+        ArrayList<WebSocketSession> allSessions = new ArrayList<>();
+        for (UserSession userSession : sessions) {
+            allSessions.addAll(userSession.getSessions());
+        }
+        return allSessions;
+    }
+
+    public Optional<String> getUserId(WebSocketSession session) {
+        for (UserSession userSession : sessions) {
+            for (WebSocketSession webSocketSession : userSession.getSessions()) {
+                if (webSocketSession.getId().equalsIgnoreCase(session.getId())) {
+                    return Optional.of(userSession.userId);
+                }
+            }
+        }
+        return Optional.empty();
     }
 }

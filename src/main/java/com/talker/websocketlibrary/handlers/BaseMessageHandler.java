@@ -13,8 +13,8 @@ public class BaseMessageHandler implements WebSocketHandler {
     IHandlerEventGenerator handlerEventGenerator;
     List<IEventHandler> eventHandlers;
 
-    void handle(WebSocketSession session, WebSocketMessage message, CloseStatus status) {
-        final HandlerEvent handlerEvent = handlerEventGenerator.generate(session, message, status);
+    void handle(WebSocketSession session, WebSocketMessage message, CloseStatus status, HandlerEventKind handlerEventKind) {
+        final HandlerEvent handlerEvent = handlerEventGenerator.generate(session, message, status, handlerEventKind);
         for (IEventHandler handler : eventHandlers) {
             if (handler.canHandle(handlerEvent)){
                 handler.handle(handlerEvent);
@@ -24,22 +24,22 @@ public class BaseMessageHandler implements WebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession webSocketSession) throws Exception {
-        handle(webSocketSession, null, null);
+        handle(webSocketSession, null, null, HandlerEventKind.Connected);
     }
 
     @Override
     public void handleMessage(WebSocketSession webSocketSession, WebSocketMessage<?> webSocketMessage) throws Exception {
-        handle(webSocketSession, webSocketMessage, null);
+        handle(webSocketSession, webSocketMessage, null, HandlerEventKind.MessageReceived);
     }
 
     @Override
     public void handleTransportError(WebSocketSession webSocketSession, Throwable throwable) throws Exception {
-        handle(webSocketSession, null, null);
+        handle(webSocketSession, null, null, HandlerEventKind.Error);
     }
 
     @Override
     public void afterConnectionClosed(WebSocketSession webSocketSession, CloseStatus closeStatus) throws Exception {
-        handle(webSocketSession, null, closeStatus);
+        handle(webSocketSession, null, closeStatus, HandlerEventKind.Disconnected);
     }
 
     @Override
