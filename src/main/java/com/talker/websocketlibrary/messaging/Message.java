@@ -12,4 +12,20 @@ public class Message {
         this.rawText = rawText;
         this.userId = userId;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getRawText() {
+        return rawText;
+    }
+
+    public String getDataText() {
+        return dataText;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
 }

@@ -36,7 +36,7 @@ public class BaseAuthenticatedMessageReceivedEventHandler implements IEventHandl
         if (optionalMessage.isPresent()) {
             WebSocketMessage webSocketMessage = optionalMessage.get();
             Message message = reader.read(webSocketMessage.toString(), handlerEvent.authenticatedUserId);
-            actionCommandsInvoker.invokeAll(model, message);
+            actionCommandsInvoker.invokeAll(model, message, handlerEvent);
         }
     }
 }
