@@ -14,7 +14,7 @@ public class HandlerEvent {
     String authenticatedUserId;
 
     public Optional<String> getAuthenticatedUserId() {
-        return Optional.of(authenticatedUserId);
+        return Optional.ofNullable(authenticatedUserId);
     }
 
     public boolean isAuthenticated() {

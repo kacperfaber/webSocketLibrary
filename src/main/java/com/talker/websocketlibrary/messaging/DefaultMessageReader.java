@@ -9,13 +9,14 @@ import java.util.regex.Pattern;
 public class DefaultMessageReader implements IMessageReader {
 
     @Override
-    public Message read(String text, String userId) {
+    public MessagePrototype read(String text) throws Exception {
         Pattern pattern = Pattern.compile("(?<name>.+) (?<data>.+)");
         Matcher match = pattern.matcher(text);
         if (match.matches()) {
             String name = match.group("name");
             String data = match.group("data");
-            return new Message(name, data, text, userId);
+            return new MessagePrototype(name, data, text);
         }
+        throw new Exception("Could not read the message.");
     }
 }

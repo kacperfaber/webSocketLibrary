@@ -1,7 +1,6 @@
 package com.talker.websocketlibrary.handlers;
 
-import com.talker.websocketlibrary.messaging.IMessageReader;
-import com.talker.websocketlibrary.messaging.Message;
+import com.talker.websocketlibrary.messaging.*;
 import com.talker.websocketlibrary.reflections.IActionCommandsInvoker;
 import com.talker.websocketlibrary.reflections.Model;
 import org.springframework.context.annotation.Bean;
@@ -17,11 +16,15 @@ public class BaseAuthenticatedMessageReceivedEventHandler implements IEventHandl
     Model model;
     IActionCommandsInvoker actionCommandsInvoker;
     IMessageReader reader;
+    IMessageGenerator messageGenerator;
+    IMessageTextValidator messageTextValidator;
 
-    public BaseAuthenticatedMessageReceivedEventHandler(Model model, IActionCommandsInvoker actionCommandsInvoker, IMessageReader reader) {
+    public BaseAuthenticatedMessageReceivedEventHandler(Model model, IActionCommandsInvoker actionCommandsInvoker, IMessageReader reader, IMessageGenerator messageGenerator, IMessageTextValidator messageTextValidator) {
         this.model = model;
         this.actionCommandsInvoker = actionCommandsInvoker;
         this.reader = reader;
+        this.messageGenerator = messageGenerator;
+        this.messageTextValidator = messageTextValidator;
     }
 
     @Override
@@ -32,15 +35,18 @@ public class BaseAuthenticatedMessageReceivedEventHandler implements IEventHandl
     }
 
     @Override
-    public void handle(HandlerEvent handlerEvent) {
+    public void handle(HandlerEvent handlerEvent) throws Exception{
         Optional<WebSocketMessage> optionalMessage = handlerEvent.getMessage();
         if (optionalMessage.isPresent()) {
             WebSocketMessage webSocketMessage = optionalMessage.get();
-            Message message = reader.read(webSocketMessage.getPayload().toString(), handlerEvent.authenticatedUserId);
-            try {
-                actionCommandsInvoker.invokeAll(model, message, handlerEvent);
-            } catch (InvocationTargetException | IllegalAccessException e) {
-                e.printStackTrace();
+            if (messageTextValidator.validate(webSocketMessage.getPayload().toString())) {
+                MessagePrototype messageProto = reader.read(webSocketMessage.getPayload().toString());
+                Message message = messageGenerator.generate(messageProto, handlerEvent.getAuthenticatedUserId().orElse(null));
+                try {
+                    actionCommandsInvoker.invokeAll(model, message, handlerEvent);
+                } catch (InvocationTargetException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

@@ -19,7 +19,7 @@ public class BaseMessageHandler implements WebSocketHandler {
         this.eventHandlers = eventHandlers;
     }
 
-    void handle(WebSocketSession session, WebSocketMessage message, CloseStatus status, HandlerEventKind handlerEventKind) {
+    void handle(WebSocketSession session, WebSocketMessage message, CloseStatus status, HandlerEventKind handlerEventKind) throws Exception {
         final HandlerEvent handlerEvent = handlerEventGenerator.generate(session, message, status, handlerEventKind);
         for (IEventHandler handler : eventHandlers) {
             if (handler.canHandle(handlerEvent)){
