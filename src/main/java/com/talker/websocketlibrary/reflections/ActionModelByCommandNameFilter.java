@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class AllowAnonymousByMessageFilter implements IActionModelByMessageFilter{
+public class ActionModelByCommandNameFilter implements IActionModelByMessageFilter{
     @Override
     public List<ActionModel> filter(List<ActionModel> actionModels, Message message) {
-        return actionModels.stream().filter(x -> (message.getUserId() == null && x.allowAnonymousAnnotation != null)).collect(Collectors.toList());
+        return actionModels.stream().filter(x -> x.socketActionAnnotation.value().equalsIgnoreCase(message.getName())).collect(Collectors.toList());
     }
 }

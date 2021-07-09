@@ -16,7 +16,8 @@ public class DefaultHandlerEventGenerator implements IHandlerEventGenerator {
 
     @Override
     public HandlerEvent generate(WebSocketSession session, WebSocketMessage message, CloseStatus closeStatus, HandlerEventKind handlerEventKind) {
-        String nullableUserId = sessionService.getUserId(session).orElse(null);
+//        String nullableUserId = sessionService.getUserId(session).orElse(null);
+        String nullableUserId = null;
         return new HandlerEvent(handlerEventKind, session, closeStatus, message, nullableUserId);
     }
 }
