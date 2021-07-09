@@ -1,5 +1,6 @@
 package com.talker.websocketlibrary.handlers;
 
+import com.talker.websocketlibrary.messaging.SessionService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.WebSocketHandler;
@@ -8,15 +9,18 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class BaseMessageHandler implements WebSocketHandler {
     IHandlerEventGenerator handlerEventGenerator;
     List<IEventHandler> eventHandlers;
+    SessionService sessionService;
 
-    public BaseMessageHandler(IHandlerEventGenerator handlerEventGenerator, List<IEventHandler> eventHandlers) {
+    public BaseMessageHandler(IHandlerEventGenerator handlerEventGenerator, List<IEventHandler> eventHandlers, SessionService sessionService) {
         this.handlerEventGenerator = handlerEventGenerator;
         this.eventHandlers = eventHandlers;
+        this.sessionService = sessionService;
     }
 
     void handle(WebSocketSession session, WebSocketMessage message, CloseStatus status, HandlerEventKind handlerEventKind) throws Exception {
@@ -30,6 +34,7 @@ public class BaseMessageHandler implements WebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession webSocketSession) throws Exception {
+        sessionService.addSession(UUID.randomUUID().toString(), webSocketSession);
         handle(webSocketSession, null, null, HandlerEventKind.Connected);
     }
 

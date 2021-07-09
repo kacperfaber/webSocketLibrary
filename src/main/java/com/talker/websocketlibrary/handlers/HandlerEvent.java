@@ -18,7 +18,7 @@ public class HandlerEvent {
     }
 
     public boolean isAuthenticated() {
-        return authenticatedUserId == null;
+        return authenticatedUserId != null;
     }
 
     public HandlerEvent(HandlerEventKind handlerEventKind, WebSocketSession session, CloseStatus closeStatus, WebSocketMessage message, String authenticatedUserId) {

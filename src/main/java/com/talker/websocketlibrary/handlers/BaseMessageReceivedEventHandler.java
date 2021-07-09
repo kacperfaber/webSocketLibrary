@@ -12,14 +12,14 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 
 @Component
-public class BaseAuthenticatedMessageReceivedEventHandler implements IEventHandler {
+public class BaseMessageReceivedEventHandler implements IEventHandler {
     Model model;
     IActionCommandsInvoker actionCommandsInvoker;
     IMessageReader reader;
     IMessageGenerator messageGenerator;
     IMessageTextValidator messageTextValidator;
 
-    public BaseAuthenticatedMessageReceivedEventHandler(Model model, IActionCommandsInvoker actionCommandsInvoker, IMessageReader reader, IMessageGenerator messageGenerator, IMessageTextValidator messageTextValidator) {
+    public BaseMessageReceivedEventHandler(Model model, IActionCommandsInvoker actionCommandsInvoker, IMessageReader reader, IMessageGenerator messageGenerator, IMessageTextValidator messageTextValidator) {
         this.model = model;
         this.actionCommandsInvoker = actionCommandsInvoker;
         this.reader = reader;
@@ -30,8 +30,7 @@ public class BaseAuthenticatedMessageReceivedEventHandler implements IEventHandl
     @Override
     public boolean canHandle(HandlerEvent handlerEvent) {
         return handlerEvent.getKind() == HandlerEventKind.MessageReceived &&
-                handlerEvent.getMessage().isPresent() &&
-                handlerEvent.isAuthenticated();
+                handlerEvent.getMessage().isPresent();
     }
 
     @Override

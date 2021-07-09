@@ -8,4 +8,5 @@ public class ActionModel {
     Class<?> actionClass;
     Method method;
     SocketAction socketActionAnnotation;
+    AllowAnonymous allowAnonymousAnnotation;
 }
