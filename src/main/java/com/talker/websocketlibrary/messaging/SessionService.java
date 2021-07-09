@@ -1,16 +1,14 @@
 package com.talker.websocketlibrary.messaging;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
-import java.net.http.WebSocket;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 public class SessionService {
@@ -18,6 +16,24 @@ public class SessionService {
 
     public void disconnect(WebSocketSession session) throws IOException {
         session.close();
+    }
+
+    public boolean closeSession(String sessionId) throws IOException {
+        Optional<WebSocketSession> optionalSession = getSessionById(sessionId);
+        if (optionalSession.isPresent()){
+            optionalSession.get().close();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean closeSession(String sessionId, CloseStatus closeStatus) throws IOException {
+        Optional<WebSocketSession> optionalSession = getSessionById(sessionId);
+        if (optionalSession.isPresent()){
+            optionalSession.get().close(closeStatus);
+            return true;
+        }
+        return false;
     }
 
     public boolean sendRawMessage(WebSocketSession session, String rawText) {
@@ -31,19 +47,19 @@ public class SessionService {
         }
     }
 
-    public UserSession getUserSession(String userId) {
-        return sessions.stream().filter(x -> x.userId.equals(userId)).findFirst().orElse(null);
+    public Optional<UserSession> getUserSession(String userId) {
+        return sessions.stream().filter(x -> x.userId.equals(userId)).findFirst();
     }
 
     public void addSession(String userId, WebSocketSession webSocketSession) {
-        UserSession userSession = getUserSession(userId);
-        if (userSession == null) {
+        Optional<UserSession> userSession = getUserSession(userId);
+        if (userSession.isEmpty()) {
             UserSession newUserSession = new UserSession(userId);
             newUserSession.addSession(webSocketSession);
             sessions.add(newUserSession);
         }
         else {
-            userSession.addSession(webSocketSession);
+            userSession.get().addSession(webSocketSession);
         }
     }
 
