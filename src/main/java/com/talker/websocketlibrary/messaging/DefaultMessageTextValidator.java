@@ -8,6 +8,6 @@ import java.util.regex.Pattern;
 public class DefaultMessageTextValidator implements IMessageTextValidator{
     @Override
     public boolean validate(String text) {
-        return Pattern.compile("^.+ .+$").matcher(text).matches();
+        return Pattern.compile("^.+? .+$").matcher(text).matches();
     }
 }

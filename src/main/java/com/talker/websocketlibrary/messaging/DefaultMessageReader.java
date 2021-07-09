@@ -10,7 +10,7 @@ public class DefaultMessageReader implements IMessageReader {
 
     @Override
     public MessagePrototype read(String text) throws Exception {
-        Pattern pattern = Pattern.compile("(?<name>.+) (?<data>.+)");
+        Pattern pattern = Pattern.compile("(?<name>.+?) (?<data>.+)");
         Matcher match = pattern.matcher(text);
         if (match.matches()) {
             String name = match.group("name");
