@@ -65,4 +65,11 @@ public class SessionService {
         }
         return Optional.empty();
     }
+
+    public Optional<WebSocketSession> getSessionById(String sessionId) {
+        for(WebSocketSession session : getAllSessions()) {
+            if (session.getId().equalsIgnoreCase(sessionId)) return Optional.of(session);
+        }
+        return Optional.empty();
+    }
 }
