@@ -10,6 +10,9 @@ import java.util.stream.Collectors;
 public class AllowAnonymousByMessageFilter implements IActionModelByMessageFilter{
     @Override
     public List<ActionModel> filter(List<ActionModel> actionModels, Message message) {
-        return actionModels.stream().filter(x -> (message.getUserId() == null && x.allowAnonymousAnnotation != null)).collect(Collectors.toList());
+        if (message.getUserId() == null) {
+            return actionModels.stream().filter(x -> x.allowAnonymousAnnotation != null).collect(Collectors.toList());
+        }
+        return actionModels;
     }
 }
