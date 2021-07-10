@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -17,7 +18,8 @@ public class DefaultActionMethodParametersGenerator implements IActionMethodPara
         List<InvokeParameter> orderedList = invokeParameters.stream().sorted(Comparator.comparingInt(o -> o.weigth)).collect(Collectors.toList());
 
         for (Class<?> parameterType : actionMethod.getParameterTypes()) {
-            parameters.add(orderedList.stream().filter(y -> y.getParameterClass() == parameterType).findFirst());
+            Optional<InvokeParameter> first = orderedList.stream().filter(y -> y.getParameterClass() == parameterType).findFirst();
+            first.ifPresent(invokeParameter -> parameters.add(invokeParameter.parameter));
         }
         return parameters.toArray();
     }
