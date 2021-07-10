@@ -8,6 +8,6 @@ import java.lang.reflect.InvocationTargetException;
 public class DefaultActionInvoker implements IActionInvoker {
     @Override
     public void invoke(ActionModel actionModel, Object controller, Command command) throws InvocationTargetException, IllegalAccessException {
-        actionModel.method.invoke(controller, command);
+
     }
 }
