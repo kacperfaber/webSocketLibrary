@@ -10,11 +10,11 @@ import java.util.List;
 @Component
 public class DefaultActionCommandsInvoker implements IActionCommandsInvoker {
     IActionModelsFilteredByMessageProvider filteredActionModelsProvider;
-    IActionModelInvoker actionInvoker;
+    IActionInvoker actionInvoker;
     IControllerProvider controllerProvider;
     ICommandGenerator commandGenerator;
 
-    public DefaultActionCommandsInvoker(IActionModelsFilteredByMessageProvider filteredActionModelsProvider, IActionModelInvoker actionInvoker, IControllerProvider controllerProvider, ICommandGenerator commandGenerator) {
+    public DefaultActionCommandsInvoker(IActionModelsFilteredByMessageProvider filteredActionModelsProvider, IActionInvoker actionInvoker, IControllerProvider controllerProvider, ICommandGenerator commandGenerator) {
         this.filteredActionModelsProvider = filteredActionModelsProvider;
         this.actionInvoker = actionInvoker;
         this.controllerProvider = controllerProvider;
