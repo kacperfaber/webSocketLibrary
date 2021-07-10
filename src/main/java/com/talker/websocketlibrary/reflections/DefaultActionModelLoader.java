@@ -1,5 +1,6 @@
 package com.talker.websocketlibrary.reflections;
 
+import com.talker.websocketlibrary.reflections.annotations.AllowAnonymous;
 import com.talker.websocketlibrary.reflections.annotations.SocketAction;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,7 @@ public class DefaultActionModelLoader implements IActionModelLoader{
         action.method = method;
         action.actionClass = actionClass;
         action.socketActionAnnotation = method.getAnnotation(SocketAction.class);
+        action.allowAnonymousAnnotation = method.getAnnotation(AllowAnonymous.class);
         return action;
     }
 }

@@ -34,7 +34,7 @@ public class BaseMessageHandler implements WebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession webSocketSession) throws Exception {
-        sessionService.addSession(UUID.randomUUID().toString(), webSocketSession);
+        sessionService.addSession(null, webSocketSession);
         handle(webSocketSession, null, null, HandlerEventKind.Connected);
     }
 

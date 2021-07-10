@@ -5,9 +5,10 @@ import org.springframework.web.socket.WebSocketSession;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UserSession {
-    final String userId;
+    String userId;
     private final List<WebSocketSession> sessions = new ArrayList<>();
 
     public UserSession(String userId) {
@@ -20,5 +21,9 @@ public class UserSession {
 
     public List<WebSocketSession> getSessions() {
         return new ArrayList<>(sessions);
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

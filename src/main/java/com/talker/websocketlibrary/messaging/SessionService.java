@@ -75,7 +75,7 @@ public class SessionService {
         for (UserSession userSession : sessions) {
             for (WebSocketSession webSocketSession : userSession.getSessions()) {
                 if (webSocketSession.getId().equalsIgnoreCase(session.getId())) {
-                    return Optional.of(userSession.userId);
+                    return Optional.ofNullable(userSession.userId);
                 }
             }
         }
@@ -87,5 +87,16 @@ public class SessionService {
             if (session.getId().equalsIgnoreCase(sessionId)) return Optional.of(session);
         }
         return Optional.empty();
+    }
+
+    public UserSession getUserSessionBy(String id) throws Exception {
+        for (UserSession userSession : sessions) {
+            for (WebSocketSession session : userSession.getSessions()) {
+                if (session.getId().equals(id)) {
+                    return userSession;
+                }
+            }
+        }
+        throw new Exception();
     }
 }
