@@ -4,9 +4,15 @@ import java.util.List;
 
 public class ActionInvoke {
     final List<InvokeParameter> parameters;
+    final ActionModel actionModel;
 
-    public ActionInvoke(List<InvokeParameter> parameters) {
+    public ActionInvoke(List<InvokeParameter> parameters, ActionModel actionModel) {
         this.parameters = parameters;
+        this.actionModel = actionModel;
+    }
+
+    public ActionModel getActionModel() {
+        return actionModel;
     }
 
     public List<InvokeParameter> getParameters() {
