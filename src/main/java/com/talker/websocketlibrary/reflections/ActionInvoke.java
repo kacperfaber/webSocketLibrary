@@ -19,7 +19,7 @@ public class ActionInvoke {
         return parameters;
     }
 
-    public <T> void addParameter(T obj, Class<T> cl) {
-        parameters.add(new InvokeParameter(cl, obj));
+    public <T> void addParameter(T obj, Class<T> cl, int weight) {
+        parameters.add(new InvokeParameter(cl, obj, weight));
     }
 }
