@@ -19,32 +19,27 @@ public class AuthenticationService {
     }
 
     public AuthenticationResult authenticate(String usernameOrEmail, String password) {
-        if (usernameOrEmail.equals("kacper")) {
-            return new AuthenticationResult(true, usernameOrEmail);
-        }
-        return new AuthenticationResult(false, null);
+        String passwordHash = passwordHasher.hash(password);
 
-//        String passwordHash = passwordHasher.hash(password);
-//
-//        HashMap<String, String> properties = new HashMap<>() {{
-//            put("passwordHash", passwordHash);
-//            put("usernameOrEmail", usernameOrEmail);
-//        }};
-//
-//        Session session = sessionFactory
-//                .getCurrentSession();
-//
-//        session.beginTransaction();
-//
-//        List<User> users = session
-//                .createQuery("from User where (upper(username) = upper(:usernameOrEmail) or upper(email) = upper(:usernameOrEmail)) and passwordHash = :passwordHash", User.class)
-//                .setProperties(properties)
-//                .getResultList();
-//
-//        if (users.isEmpty()) {
-//            return new AuthenticationResult(false, null);
-//        }
-//
-//        return new AuthenticationResult(true, users.stream().findFirst().get().getId());
+        HashMap<String, String> properties = new HashMap<>() {{
+            put("passwordHash", passwordHash);
+            put("usernameOrEmail", usernameOrEmail);
+        }};
+
+        Session session = sessionFactory
+                .getCurrentSession();
+
+        session.beginTransaction();
+
+        List<User> users = session
+                .createQuery("from User where (upper(username) = upper(:usernameOrEmail) or upper(email) = upper(:usernameOrEmail)) and passwordHash = :passwordHash", User.class)
+                .setProperties(properties)
+                .getResultList();
+
+        if (users.isEmpty()) {
+            return new AuthenticationResult(false, null);
+        }
+
+        return new AuthenticationResult(true, users.stream().findFirst().get().getId());
     }
 }
