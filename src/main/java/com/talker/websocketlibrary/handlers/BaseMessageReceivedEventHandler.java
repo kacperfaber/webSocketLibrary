@@ -1,10 +1,8 @@
 package com.talker.websocketlibrary.handlers;
 
 import com.talker.websocketlibrary.messaging.*;
-import com.talker.websocketlibrary.reflections.IActionCommandsInvoker;
+import com.talker.websocketlibrary.reflections.IActionCommandInvoker;
 import com.talker.websocketlibrary.reflections.Model;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketMessage;
 
@@ -14,12 +12,12 @@ import java.util.Optional;
 @Component
 public class BaseMessageReceivedEventHandler implements IEventHandler {
     Model model;
-    IActionCommandsInvoker actionCommandsInvoker;
+    IActionCommandInvoker actionCommandsInvoker;
     IMessageReader reader;
     IMessageGenerator messageGenerator;
     IMessageTextValidator messageTextValidator;
 
-    public BaseMessageReceivedEventHandler(Model model, IActionCommandsInvoker actionCommandsInvoker, IMessageReader reader, IMessageGenerator messageGenerator, IMessageTextValidator messageTextValidator) {
+    public BaseMessageReceivedEventHandler(Model model, IActionCommandInvoker actionCommandsInvoker, IMessageReader reader, IMessageGenerator messageGenerator, IMessageTextValidator messageTextValidator) {
         this.model = model;
         this.actionCommandsInvoker = actionCommandsInvoker;
         this.reader = reader;
@@ -42,7 +40,7 @@ public class BaseMessageReceivedEventHandler implements IEventHandler {
                 MessagePrototype messageProto = reader.read(webSocketMessage.getPayload().toString());
                 Message message = messageGenerator.generate(messageProto, handlerEvent.getAuthenticatedUserId().orElse(null));
                 try {
-                    actionCommandsInvoker.invokeAll(model, message, handlerEvent);
+                    actionCommandsInvoker.invoke(model, message, handlerEvent);
                 } catch (InvocationTargetException | IllegalAccessException e) {
                     e.printStackTrace();
                 }

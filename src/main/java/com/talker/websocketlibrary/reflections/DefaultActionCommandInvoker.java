@@ -8,24 +8,25 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 @Component
-public class DefaultActionCommandsInvoker implements IActionCommandsInvoker {
+public class DefaultActionCommandInvoker implements IActionCommandInvoker {
     IActionModelsFilteredByMessageProvider filteredActionModelsProvider;
     IActionInvoker actionInvoker;
     IControllerProvider controllerProvider;
     ICommandGenerator commandGenerator;
+    ISingleActionModelProvider singleActionModelProvider;
 
-    public DefaultActionCommandsInvoker(IActionModelsFilteredByMessageProvider filteredActionModelsProvider, IActionInvoker actionInvoker, IControllerProvider controllerProvider, ICommandGenerator commandGenerator) {
+    public DefaultActionCommandInvoker(IActionModelsFilteredByMessageProvider filteredActionModelsProvider, IActionInvoker actionInvoker, IControllerProvider controllerProvider, ICommandGenerator commandGenerator, ISingleActionModelProvider singleActionModelProvider) {
         this.filteredActionModelsProvider = filteredActionModelsProvider;
         this.actionInvoker = actionInvoker;
         this.controllerProvider = controllerProvider;
         this.commandGenerator = commandGenerator;
+        this.singleActionModelProvider = singleActionModelProvider;
     }
 
     @Override
-    public void invokeAll(Model model, Message message, HandlerEvent handlerEvent) throws InvocationTargetException, IllegalAccessException {
+    public void invoke(Model model, Message message, HandlerEvent handlerEvent) throws Exception {
         List<ActionModel> actionModels = filteredActionModelsProvider.provide(model, message);
-        for (ActionModel actionModel : actionModels) {
-            actionInvoker.invoke(actionModel, controllerProvider.provide(actionModel.actionClass), commandGenerator.generate(message, handlerEvent));
-        }
+        ActionModel actionModel = singleActionModelProvider.provide(actionModels, message.getName());
+        actionInvoker.invoke(actionModel, controllerProvider.provide(actionModel.actionClass), commandGenerator.generate(message, handlerEvent));
     }
 }

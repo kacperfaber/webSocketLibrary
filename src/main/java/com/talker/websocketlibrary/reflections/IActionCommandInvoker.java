@@ -5,6 +5,6 @@ import com.talker.websocketlibrary.messaging.Message;
 
 import java.lang.reflect.InvocationTargetException;
 
-public interface IActionCommandsInvoker {
-    void invokeAll(Model model, Message message, HandlerEvent handlerEvent) throws InvocationTargetException, IllegalAccessException;
+public interface IActionCommandInvoker {
+    void invoke(Model model, Message message, HandlerEvent handlerEvent) throws InvocationTargetException, IllegalAccessException, Exception;
 }
