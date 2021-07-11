@@ -1,5 +1,6 @@
 package com.talker.websocketlibrary.reflections;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ActionInvoke {
@@ -15,11 +16,15 @@ public class ActionInvoke {
         return actionModel;
     }
 
-    public List<InvokeParameter> getParameters() {
-        return parameters;
-    }
-
     public <T> void addParameter(T obj, Class<T> cl, int weight) {
         parameters.add(new InvokeParameter(cl, obj, weight));
+    }
+
+    public void addParameter(InvokeParameter p) {
+        parameters.add(p);
+    }
+
+    public List<InvokeParameter> getParameters() {
+        return new ArrayList<>(parameters);
     }
 }
