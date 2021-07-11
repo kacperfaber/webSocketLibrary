@@ -24,6 +24,5 @@ public class DefaultPerRequestControllerGenerator implements IPerRequestControll
         if (optionalSession.isPresent()) {
             return new PerRequestController(appContext.getBean(MessageService.class), appContext.getBean(SessionService.class), optionalSession.get());
         }
-        throw new Exception("");
     }
 }

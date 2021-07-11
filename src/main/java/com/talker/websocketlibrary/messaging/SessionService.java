@@ -9,10 +9,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class SessionService {
-    final List<UserSession> sessions = new ArrayList<>();
+    final List<Session> sessions = new ArrayList<>();
 
     public void disconnect(WebSocketSession session) throws IOException {
         session.close();
@@ -63,55 +64,30 @@ public class SessionService {
         }
     }
 
-    public Optional<UserSession> getUserSession(String userId) {
-        return sessions.stream().filter(x -> x.userId.equals(userId)).findFirst();
+    public UserSession getUserSession(String userId) {
+        List<WebSocketSession> userSessions = sessions.stream().filter(x -> x.userId.equals(userId)).map(Session::getSession).collect(Collectors.toList());
+        return new UserSession(userId, userSessions);
     }
 
-    public void addSession(String userId, WebSocketSession webSocketSession) {
-        Optional<UserSession> userSession = getUserSession(userId);
-        if (userSession.isEmpty()) {
-            UserSession newUserSession = new UserSession(userId);
-            newUserSession.addSession(webSocketSession);
-            sessions.add(newUserSession);
-        } else {
-            userSession.get().addSession(webSocketSession);
-        }
+    public void addSession(WebSocketSession webSocketSession) {
+        sessions.add(new Session(webSocketSession.getId(), webSocketSession));
     }
 
     public List<WebSocketSession> getAllSessions() {
-        ArrayList<WebSocketSession> allSessions = new ArrayList<>();
-        for (UserSession userSession : sessions) {
-            allSessions.addAll(userSession.getSessions());
-        }
-        return allSessions;
+        return sessions.stream().map(Session::getSession).collect(Collectors.toList());
     }
 
     public Optional<String> getUserId(WebSocketSession session) {
-        for (UserSession userSession : sessions) {
-            for (WebSocketSession webSocketSession : userSession.getSessions()) {
-                if (webSocketSession.getId().equalsIgnoreCase(session.getId())) {
-                    return Optional.ofNullable(userSession.userId);
-                }
-            }
-        }
-        return Optional.empty();
+        Optional<Session> optionalSession = sessions.stream().filter(x -> x.sessionId.equals(session.getId())).findFirst();
+        return optionalSession.map(Session::getUserId);
     }
 
     public Optional<WebSocketSession> getSessionById(String sessionId) {
-        for (WebSocketSession session : getAllSessions()) {
-            if (session.getId().equalsIgnoreCase(sessionId)) return Optional.of(session);
-        }
-        return Optional.empty();
-    }
-
-    public UserSession getUserSessionBy(String id) throws Exception {
-        for (UserSession userSession : sessions) {
-            for (WebSocketSession session : userSession.getSessions()) {
-                if (session.getId().equals(id)) {
-                    return userSession;
-                }
+        for (Session session : sessions) {
+            if (session.getSessionId().equals(sessionId)) {
+                return Optional.of(session.getSession());
             }
         }
-        throw new Exception();
+        return Optional.empty();
     }
 }

@@ -8,11 +8,12 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserSession {
-    String userId;
-    private final List<WebSocketSession> sessions = new ArrayList<>();
+    final String userId;
+    private final List<WebSocketSession> sessions;
 
-    public UserSession(String userId) {
+    public UserSession(String userId, List<WebSocketSession> sessions) {
         this.userId = userId;
+        this.sessions = sessions;
     }
 
     public void addSession(WebSocketSession webSocketSession) {
@@ -21,9 +22,5 @@ public class UserSession {
 
     public List<WebSocketSession> getSessions() {
         return new ArrayList<>(sessions);
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 }
