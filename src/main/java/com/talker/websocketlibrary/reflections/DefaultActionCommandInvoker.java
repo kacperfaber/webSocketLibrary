@@ -4,7 +4,6 @@ import com.talker.websocketlibrary.handlers.HandlerEvent;
 import com.talker.websocketlibrary.messaging.Message;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 @Component
@@ -27,6 +26,6 @@ public class DefaultActionCommandInvoker implements IActionCommandInvoker {
     public void invoke(Model model, Message message, HandlerEvent handlerEvent) throws Exception {
         List<ActionModel> actionModels = filteredActionModelsProvider.provide(model, message);
         ActionModel actionModel = singleActionModelProvider.provide(actionModels, message.getName());
-        actionInvoker.invoke(actionModel, controllerProvider.provide(actionModel.actionClass), commandGenerator.generate(message, handlerEvent));
+        actionInvoker.invoke(actionModel, controllerProvider.provide(actionModel.actionClass), commandGenerator.generate(message, handlerEvent), handlerEvent);
     }
 }

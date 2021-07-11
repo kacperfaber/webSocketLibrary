@@ -2,7 +2,6 @@ package com.talker.websocketlibrary.messaging;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
@@ -31,14 +30,12 @@ public class MessageService {
     }
 
     public <T> boolean sendToUser(String userId, String name, T data, Class<T> dataClass) throws IOException {
-        Optional<UserSession> userSessionOptional = sessionService.getUserSession(userId);
-        if (userSessionOptional.isPresent()) {
-            for (WebSocketSession session : userSessionOptional.get().getSessions()) {
-                SendMessage message = new SendMessage(name, data, dataClass);
-                TextMessage textMessage = new TextMessage(messageWriter.writeMessage(message));
-                session.sendMessage(textMessage);
-                return true;
-            }
+        UserSession userSession = sessionService.getUserSession(userId);
+        for (WebSocketSession session : userSession.getSessions()) {
+            SendMessage message = new SendMessage(name, data, dataClass);
+            TextMessage textMessage = new TextMessage(messageWriter.writeMessage(message));
+            session.sendMessage(textMessage);
+            return true;
         }
         return false;
     }
@@ -49,8 +46,7 @@ public class MessageService {
             TextMessage textMessage = new TextMessage(messageWriter.writeMessage(message));
             session.sendMessage(textMessage);
             return true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return false;
         }
     }
@@ -60,8 +56,7 @@ public class MessageService {
             TextMessage textMessage = new TextMessage(messageWriter.writeMessage(sendMessage));
             session.sendMessage(textMessage);
             return true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return false;
         }
     }

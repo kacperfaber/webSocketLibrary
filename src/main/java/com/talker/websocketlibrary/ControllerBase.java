@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
-import java.util.Optional;
 
 public abstract class ControllerBase {
     @Autowired
@@ -41,12 +40,10 @@ public abstract class ControllerBase {
 
     public int kick(String userId) throws IOException {
         int totalKicked = 0;
-        Optional<UserSession> userSessionOptional = sessionService.getUserSession(userId);
-        if (userSessionOptional.isPresent()) {
-            for (WebSocketSession webSocketSession : userSessionOptional.get().getSessions()) {
-                webSocketSession.close();
-                totalKicked++;
-            }
+        UserSession userSession = sessionService.getUserSession(userId);
+        for (WebSocketSession webSocketSession : userSession.getSessions()) {
+            webSocketSession.close();
+            totalKicked++;
         }
         return totalKicked;
     }

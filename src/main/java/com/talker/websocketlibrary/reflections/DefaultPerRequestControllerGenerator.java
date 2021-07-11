@@ -6,10 +6,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
 
-import java.util.Optional;
-
 @Component
-public class DefaultPerRequestControllerGenerator implements IPerRequestControllerGenerator{
+public class DefaultPerRequestControllerGenerator implements IPerRequestControllerGenerator {
     ApplicationContext appContext;
     SessionService sessionService;
 
@@ -19,10 +17,7 @@ public class DefaultPerRequestControllerGenerator implements IPerRequestControll
     }
 
     @Override
-    public PerRequestController generate(String sessionId) {
-        Optional<WebSocketSession> optionalSession = sessionService.getSessionById(sessionId);
-        if (optionalSession.isPresent()) {
-            return new PerRequestController(appContext.getBean(MessageService.class), appContext.getBean(SessionService.class), optionalSession.get());
-        }
+    public PerRequestController generate(WebSocketSession webSocketSession) {
+        return new PerRequestController(appContext.getBean(MessageService.class), appContext.getBean(SessionService.class), webSocketSession);
     }
 }

@@ -1,5 +1,6 @@
 package com.talker.websocketlibrary.reflections;
 
+import com.talker.websocketlibrary.handlers.HandlerEvent;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,9 +14,9 @@ public class DefaultActionInvokerExtensionsInvoker implements  IActionInvokerExt
     }
 
     @Override
-    public void invokeAll(List<IActionInvokerExtension> extensions, ActionInvoke actionInvoke, ActionModel actionModel, Command command, Object controller) {
+    public void invokeAll(List<IActionInvokerExtension> extensions, ActionInvoke actionInvoke, ActionModel actionModel, Command command, Object controller, HandlerEvent handlerEvent) {
         for (IActionInvokerExtension extension : extensions) {
-            invoker.invoke(extension, actionInvoke, actionModel, command, controller);
+            invoker.invoke(extension, actionInvoke, actionModel, command, controller, handlerEvent);
         }
     }
 }
