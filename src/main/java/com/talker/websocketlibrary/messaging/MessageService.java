@@ -42,4 +42,27 @@ public class MessageService {
         }
         return false;
     }
+
+    public <T> boolean sendToSession(WebSocketSession session, String name, T data, Class<T> dataClass) {
+        try {
+            SendMessage message = new SendMessage(name, data, dataClass);
+            TextMessage textMessage = new TextMessage(messageWriter.writeMessage(message));
+            session.sendMessage(textMessage);
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
+
+    public <T> boolean sendToSession(WebSocketSession session, SendMessage sendMessage) {
+        try {
+            TextMessage textMessage = new TextMessage(messageWriter.writeMessage(sendMessage));
+            session.sendMessage(textMessage);
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
 }

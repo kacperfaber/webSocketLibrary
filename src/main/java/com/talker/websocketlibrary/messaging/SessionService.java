@@ -20,16 +20,34 @@ public class SessionService {
 
     public boolean closeSession(String sessionId) throws IOException {
         Optional<WebSocketSession> optionalSession = getSessionById(sessionId);
-        if (optionalSession.isPresent()){
+        if (optionalSession.isPresent()) {
             optionalSession.get().close();
             return true;
         }
         return false;
     }
 
+    public boolean closeSession(WebSocketSession webSocketSession) {
+        try {
+            webSocketSession.close();
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    public boolean closeSession(WebSocketSession session, CloseStatus closeStatus) {
+        try {
+            session.close(closeStatus);
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
     public boolean closeSession(String sessionId, CloseStatus closeStatus) throws IOException {
         Optional<WebSocketSession> optionalSession = getSessionById(sessionId);
-        if (optionalSession.isPresent()){
+        if (optionalSession.isPresent()) {
             optionalSession.get().close(closeStatus);
             return true;
         }
@@ -40,9 +58,7 @@ public class SessionService {
         try {
             session.sendMessage(new TextMessage(rawText));
             return true;
-        }
-
-        catch (IOException e) {
+        } catch (IOException e) {
             return false;
         }
     }
@@ -57,8 +73,7 @@ public class SessionService {
             UserSession newUserSession = new UserSession(userId);
             newUserSession.addSession(webSocketSession);
             sessions.add(newUserSession);
-        }
-        else {
+        } else {
             userSession.get().addSession(webSocketSession);
         }
     }
@@ -83,7 +98,7 @@ public class SessionService {
     }
 
     public Optional<WebSocketSession> getSessionById(String sessionId) {
-        for(WebSocketSession session : getAllSessions()) {
+        for (WebSocketSession session : getAllSessions()) {
             if (session.getId().equalsIgnoreCase(sessionId)) return Optional.of(session);
         }
         return Optional.empty();
