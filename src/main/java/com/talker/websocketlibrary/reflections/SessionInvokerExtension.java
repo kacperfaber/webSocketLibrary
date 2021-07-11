@@ -1,0 +1,23 @@
+package com.talker.websocketlibrary.reflections;
+
+import com.talker.websocketlibrary.handlers.HandlerEvent;
+import com.talker.websocketlibrary.messaging.Session;
+import com.talker.websocketlibrary.messaging.SessionService;
+import org.springframework.stereotype.Component;
+
+import java.util.Optional;
+
+@Component
+public class SessionInvokerExtension implements IActionInvokerExtension{
+    SessionService sessionService;
+
+    public SessionInvokerExtension(SessionService sessionService) {
+        this.sessionService = sessionService;
+    }
+
+    @Override
+    public void beforeInvoke(ActionInvoke actionInvoke, ActionModel actionModel, Command command, Object controller, HandlerEvent handlerEvent) {
+        Optional<Session> session = sessionService.getSession(command.getSessionId());
+        actionInvoke.addParameter(session.orElse(null), Session.class, 0);
+    }
+}

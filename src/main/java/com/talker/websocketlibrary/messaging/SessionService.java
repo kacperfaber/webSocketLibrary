@@ -90,4 +90,8 @@ public class SessionService {
         }
         return Optional.empty();
     }
+
+    public Optional<Session> getSession(String sessionId) {
+        return sessions.stream().filter(x->x.getSessionId().equals(sessionId)).findFirst();
+    }
 }
