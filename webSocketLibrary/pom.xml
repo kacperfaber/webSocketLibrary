@@ -6,7 +6,11 @@
 
     <groupId>com.talker.websocketlibrary</groupId>
     <artifactId>webSocketLibrary</artifactId>
-    <version>1.0-DEV</version>
+    <packaging>pom</packaging>
+    <version>1.DEV</version>
+    <modules>
+        <module>test</module>
+    </modules>
     <dependencies>
         <dependency>
             <groupId>com.google.code.gson</groupId>
@@ -35,16 +39,6 @@
             <artifactId>mockito-core</artifactId>
             <version>3.9.0</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>5.5.0.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.25</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
