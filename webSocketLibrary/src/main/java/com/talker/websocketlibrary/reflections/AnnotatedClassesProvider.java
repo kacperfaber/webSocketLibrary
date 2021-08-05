@@ -12,7 +12,7 @@ import java.util.Set;
 public class AnnotatedClassesProvider implements IAnnotatedClassesProvider {
     @Override
     public Set<Class<?>> provide() {
-        Reflections reflections = new Reflections("com.talker", new TypeAnnotationsScanner(), new SubTypesScanner());
+        Reflections reflections = new Reflections(new TypeAnnotationsScanner(), new SubTypesScanner());
         return reflections.getTypesAnnotatedWith(SocketController.class);
     }
 }

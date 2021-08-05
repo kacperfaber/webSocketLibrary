@@ -6,11 +6,7 @@
 
     <groupId>com.talker.websocketlibrary</groupId>
     <artifactId>webSocketLibrary</artifactId>
-    <packaging>pom</packaging>
-    <version>1.DEV</version>
-    <modules>
-        <module>test</module>
-    </modules>
+    <version>1.2-DEVELOPER-BUILT</version>
     <dependencies>
         <dependency>
             <groupId>com.google.code.gson</groupId>
