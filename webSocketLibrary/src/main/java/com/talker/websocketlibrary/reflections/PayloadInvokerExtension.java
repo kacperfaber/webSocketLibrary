@@ -18,10 +18,12 @@ public class PayloadInvokerExtension implements IActionInvokerExtension{
 
     @Override
     public void beforeInvoke(ActionInvoke actionInvoke, ActionModel actionModel, Command command, Object controller, HandlerEvent handlerEvent) {
-        Parameter firstParam = actionModel.method.getParameters()[0];
-        if (firstParam.getAnnotation(Payload.class) != null) {
-            BindingResult<?> bindingResult = binder.bind(command.getDataText(), firstParam.getType());
-            actionInvoke.parameters.add(new InvokeParameter(bindingResult.dataClass, bindingResult.data, 0));
+        Parameter[] params= actionModel.method.getParameters();
+        for (Parameter parameter : params) {
+            if (parameter.isAnnotationPresent(Payload.class)) {
+                BindingResult<?> bindingResult = binder.bind(command.getDataText(), parameter.getType());
+                actionInvoke.parameters.add(new InvokeParameter(bindingResult.dataClass, bindingResult.data, 0));
+            }
         }
     }
 }

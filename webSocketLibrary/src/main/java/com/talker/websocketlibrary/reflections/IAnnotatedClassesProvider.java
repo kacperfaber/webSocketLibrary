@@ -3,5 +3,5 @@ package com.talker.websocketlibrary.reflections;
 import java.util.Set;
 
 public interface IAnnotatedClassesProvider {
-    Set<Class<?>> provide();
+    Set<Class<?>> provide(String prefix);
 }

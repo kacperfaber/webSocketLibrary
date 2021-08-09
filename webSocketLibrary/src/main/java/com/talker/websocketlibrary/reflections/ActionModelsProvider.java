@@ -20,9 +20,9 @@ public class ActionModelsProvider implements IActionModelsProvider {
     }
 
     @Override
-    public List<ActionModel> provide() {
+    public List<ActionModel> provide(String prefix) {
         List<ActionModel> actionModels = new ArrayList<>();
-        Set<Class<?>> classes = classesProvider.provide();
+        Set<Class<?>> classes = classesProvider.provide(prefix);
         for (Class<?> c : classes) {
             for (Method method : methodsProvider.provide(c)){
                 actionModels.add(actionModelLoader.load(method, c));

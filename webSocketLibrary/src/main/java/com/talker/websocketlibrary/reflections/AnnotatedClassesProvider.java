@@ -11,8 +11,8 @@ import java.util.Set;
 @Component
 public class AnnotatedClassesProvider implements IAnnotatedClassesProvider {
     @Override
-    public Set<Class<?>> provide() {
-        Reflections reflections = new Reflections(new TypeAnnotationsScanner(), new SubTypesScanner());
+    public Set<Class<?>> provide(String prefix) {
+        Reflections reflections = new Reflections(prefix,new TypeAnnotationsScanner(), new SubTypesScanner());
         return reflections.getTypesAnnotatedWith(SocketController.class);
     }
 }

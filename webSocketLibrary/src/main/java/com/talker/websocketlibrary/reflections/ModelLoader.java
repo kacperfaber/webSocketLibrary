@@ -16,8 +16,8 @@ public class ModelLoader {
         this.modelsProvider = modelsProvider;
     }
 
-    public Model load() {
-        List<ActionModel> actionModels = modelsProvider.provide();
+    public Model load(String prefix) {
+        List<ActionModel> actionModels = modelsProvider.provide(prefix);
         Model model = new Model();
         model.actions = actionModels;
         return model;

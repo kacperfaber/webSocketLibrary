@@ -5,5 +5,5 @@ import org.reflections.Reflections;
 import java.util.List;
 
 public interface IActionModelsProvider {
-    List<ActionModel> provide();
+    List<ActionModel> provide(String prefix);
 }
