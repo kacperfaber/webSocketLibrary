@@ -15,23 +15,22 @@ import java.util.stream.Collectors;
 public class FilterAnnotationsActionInvokerExtension implements IActionInvokerExtension{
     ApplicationContext applicationContext;
 
+    public FilterAnnotationsActionInvokerExtension(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
+
     @Override
     public void beforeInvoke(ActionInvoke actionInvoke, Object controller, HandlerEvent handlerEvent) throws Exception{
-        try {
-            List<FilterClassName> filterClassNames = Arrays.stream(actionInvoke.getActionModel().method.getAnnotations())
-                    .filter(x -> x.annotationType().isAnnotationPresent(FilterClassName.class))
-                    .map(x -> x.annotationType().getAnnotation(FilterClassName.class))
-                    .collect(Collectors.toList());
+        List<FilterClassName> filterClassNames = Arrays.stream(actionInvoke.getActionModel().method.getAnnotations())
+                .filter(x -> x.annotationType().isAnnotationPresent(FilterClassName.class))
+                .map(x -> x.annotationType().getAnnotation(FilterClassName.class))
+                .collect(Collectors.toList());
 
-            for (FilterClassName filterClassName : filterClassNames) {
-                for (Class<? extends IFilter> filterClass : filterClassName.value()) {
-                    IFilter filter = applicationContext.getBean(filterClass);
-                    filter.filter(actionInvoke, controller, handlerEvent);
-                }
+        for (FilterClassName filterClassName : filterClassNames) {
+            for (Class<? extends IFilter> filterClass : filterClassName.value()) {
+                IFilter filter = applicationContext.getBean(filterClass);
+                filter.filter(actionInvoke, controller, handlerEvent);
             }
-        }
-        catch (ActionInvokerException e) {
-            // TODO: Do something, we have message to send, and we've to cancel processing a message.
         }
     }
 }
