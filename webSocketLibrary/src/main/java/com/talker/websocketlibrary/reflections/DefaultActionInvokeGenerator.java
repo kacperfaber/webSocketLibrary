@@ -7,7 +7,7 @@ import java.util.ArrayList;
 @Component
 public class DefaultActionInvokeGenerator implements IActionInvokeGenerator{
     @Override
-    public ActionInvoke generate(ActionModel actionModel) {
-        return new ActionInvoke(new ArrayList<>(), actionModel);
+    public ActionInvoke generate(ActionModel actionModel, Command command) {
+        return new ActionInvoke(new ArrayList<>(), actionModel, command);
     }
 }

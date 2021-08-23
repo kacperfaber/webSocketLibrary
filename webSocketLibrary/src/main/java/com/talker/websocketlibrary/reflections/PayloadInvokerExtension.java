@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Parameter;
 
 @Component
-public class PayloadInvokerExtension implements IActionInvokerExtension{
+public class PayloadInvokerExtension implements IActionInvokerExtension {
     IDataBinder binder;
 
     public PayloadInvokerExtension(IDataBinder binder) {
@@ -17,11 +17,11 @@ public class PayloadInvokerExtension implements IActionInvokerExtension{
     }
 
     @Override
-    public void beforeInvoke(ActionInvoke actionInvoke, ActionModel actionModel, Command command, Object controller, HandlerEvent handlerEvent) {
-        Parameter[] params= actionModel.method.getParameters();
+    public void beforeInvoke(ActionInvoke actionInvoke, Object controller, HandlerEvent handlerEvent) {
+        Parameter[] params = actionInvoke.getActionModel().method.getParameters();
         for (Parameter parameter : params) {
             if (parameter.isAnnotationPresent(Payload.class)) {
-                BindingResult<?> bindingResult = binder.bind(command.getDataText(), parameter.getType());
+                BindingResult<?> bindingResult = binder.bind(actionInvoke.getCommand().getDataText(), parameter.getType());
                 actionInvoke.parameters.add(new InvokeParameter(bindingResult.dataClass, bindingResult.data, 0));
             }
         }

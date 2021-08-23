@@ -6,10 +6,12 @@ import java.util.List;
 public class ActionInvoke {
     final List<InvokeParameter> parameters;
     final ActionModel actionModel;
+    final Command command;
 
-    public ActionInvoke(List<InvokeParameter> parameters, ActionModel actionModel) {
+    public ActionInvoke(List<InvokeParameter> parameters, ActionModel actionModel, Command command) {
         this.parameters = parameters;
         this.actionModel = actionModel;
+        this.command = command;
     }
 
     public ActionModel getActionModel() {
@@ -26,5 +28,9 @@ public class ActionInvoke {
 
     public List<InvokeParameter> getParameters() {
         return new ArrayList<>(parameters);
+    }
+
+    public Command getCommand() {
+        return this.command;
     }
 }

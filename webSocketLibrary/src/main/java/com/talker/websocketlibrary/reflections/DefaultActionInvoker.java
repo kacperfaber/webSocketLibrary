@@ -22,8 +22,8 @@ public class DefaultActionInvoker implements IActionInvoker {
 
     @Override
     public void invoke(ActionModel actionModel, Object controller, Command command, HandlerEvent handlerEvent) throws InvocationTargetException, IllegalAccessException {
-        final ActionInvoke actionInvoke = actionInvokeGenerator.generate(actionModel);
-        extensionsInvoker.invokeAll(extensions, actionInvoke, actionModel, command, controller, handlerEvent);
+        final ActionInvoke actionInvoke = actionInvokeGenerator.generate(actionModel, command);
+        extensionsInvoker.invokeAll(extensions, actionInvoke, controller, handlerEvent);
         Object[] params = parametersGenerator.generate(actionModel.method, actionInvoke.getParameters());
         actionModel.method.invoke(controller, params);
     }
