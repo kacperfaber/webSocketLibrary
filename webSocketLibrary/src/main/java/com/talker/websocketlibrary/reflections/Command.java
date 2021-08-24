@@ -1,9 +1,10 @@
 package com.talker.websocketlibrary.reflections;
 
 public class Command {
-    final String name, rawText, dataText, userId, sessionId;
+    final String name, rawText, dataText, sessionId;
+    final Object userId;
 
-    public Command(String name, String rawText, String dataText, String userId, String sessionId) {
+    public Command(String name, String rawText, String dataText, Object userId, String sessionId) {
         this.name = name;
         this.rawText = rawText;
         this.dataText = dataText;
@@ -23,7 +24,7 @@ public class Command {
         return dataText;
     }
 
-    public String getUserId() {
+    public Object getUserId() {
         return userId;
     }
 

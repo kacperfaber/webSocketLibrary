@@ -16,15 +16,16 @@ public class DefaultActionInvoker implements IActionInvoker {
     IActionMethodParametersGenerator parametersGenerator;
     MessageService messageService;
 
-    public DefaultActionInvoker(List<IActionInvokerExtension> extensions, IActionInvokeGenerator actionInvokeGenerator, IActionInvokerExtensionsInvoker extensionsInvoker, IActionMethodParametersGenerator parametersGenerator) {
+    public DefaultActionInvoker(List<IActionInvokerExtension> extensions, IActionInvokeGenerator actionInvokeGenerator, IActionInvokerExtensionsInvoker extensionsInvoker, IActionMethodParametersGenerator parametersGenerator, MessageService messageService) {
         this.extensions = extensions;
         this.actionInvokeGenerator = actionInvokeGenerator;
         this.extensionsInvoker = extensionsInvoker;
         this.parametersGenerator = parametersGenerator;
+        this.messageService = messageService;
     }
 
     @Override
-    public void invoke(ActionModel actionModel, Object controller, Command command, HandlerEvent handlerEvent) throws InvocationTargetException, IllegalAccessException {
+    public void invoke(ActionModel actionModel, Object controller, Command command, HandlerEvent handlerEvent) {
         try {
             final ActionInvoke actionInvoke = actionInvokeGenerator.generate(actionModel, command);
             extensionsInvoker.invokeAll(extensions, actionInvoke, controller, handlerEvent);

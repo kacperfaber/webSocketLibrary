@@ -5,7 +5,7 @@ import org.springframework.web.socket.WebSocketSession;
 public class Session {
     final String sessionId;
     final WebSocketSession session;
-    String userId;
+    Object userId;
 
     public Session(String sessionId, WebSocketSession session) {
         this.sessionId = sessionId;
@@ -20,11 +20,11 @@ public class Session {
         return session;
     }
 
-    public String getUserId() {
+    public Object getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Object userId) {
         this.userId = userId;
     }
 }

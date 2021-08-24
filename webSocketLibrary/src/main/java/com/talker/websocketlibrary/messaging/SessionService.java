@@ -77,7 +77,7 @@ public class SessionService {
         return sessions.stream().map(Session::getSession).collect(Collectors.toList());
     }
 
-    public Optional<String> getUserId(WebSocketSession session) {
+    public Optional<Object> getUserId(WebSocketSession session) {
         Optional<Session> optionalSession = sessions.stream().filter(x -> x.sessionId.equals(session.getId())).findFirst();
         return optionalSession.map(Session::getUserId);
     }

@@ -4,9 +4,9 @@ public class Message {
     final String name;
     final String rawText;
     final String dataText;
-    final String userId;
+    final Object userId;
 
-    public Message(String name, String dataText, String rawText, String userId) {
+    public Message(String name, String dataText, String rawText, Object userId) {
         this.name = name;
         this.dataText = dataText;
         this.rawText = rawText;
@@ -25,7 +25,7 @@ public class Message {
         return dataText;
     }
 
-    public String getUserId() {
+    public Object getUserId() {
         return userId;
     }
 }

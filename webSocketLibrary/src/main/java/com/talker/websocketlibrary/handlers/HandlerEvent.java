@@ -11,9 +11,9 @@ public class HandlerEvent {
     CloseStatus closeStatus;
     WebSocketMessage message;
     HandlerEventKind kind;
-    String authenticatedUserId;
+    Object authenticatedUserId;
 
-    public Optional<String> getAuthenticatedUserId() {
+    public Optional<Object> getAuthenticatedUserId() {
         return Optional.ofNullable(authenticatedUserId);
     }
 
@@ -21,7 +21,7 @@ public class HandlerEvent {
         return authenticatedUserId != null;
     }
 
-    public HandlerEvent(HandlerEventKind handlerEventKind, WebSocketSession session, CloseStatus closeStatus, WebSocketMessage message, String authenticatedUserId) {
+    public HandlerEvent(HandlerEventKind handlerEventKind, WebSocketSession session, CloseStatus closeStatus, WebSocketMessage message, Object authenticatedUserId) {
         this.kind = handlerEventKind;
         this.session = session;
         this.closeStatus = closeStatus;
