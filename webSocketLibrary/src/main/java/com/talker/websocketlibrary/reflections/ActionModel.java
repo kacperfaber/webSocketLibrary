@@ -8,4 +8,16 @@ public class ActionModel {
     Class<?> actionClass;
     Method method;
     SocketAction socketActionAnnotation;
+
+    public Class<?> getActionClass() {
+        return actionClass;
+    }
+
+    public Method getMethod() {
+        return method;
+    }
+
+    public SocketAction getSocketActionAnnotation() {
+        return socketActionAnnotation;
+    }
 }

@@ -16,11 +16,12 @@ public class DefaultActionInvoker implements IActionInvoker {
     IActionMethodParametersGenerator parametersGenerator;
     IExceptionHandler exceptionHandler;
 
-    public DefaultActionInvoker(List<IActionInvokerExtension> extensions, IActionInvokeGenerator actionInvokeGenerator, IActionInvokerExtensionsInvoker extensionsInvoker, IActionMethodParametersGenerator parametersGenerator, MessageService messageService) {
+    public DefaultActionInvoker(List<IActionInvokerExtension> extensions, IActionInvokeGenerator actionInvokeGenerator, IActionInvokerExtensionsInvoker extensionsInvoker, IActionMethodParametersGenerator parametersGenerator, IExceptionHandler exceptionHandler) {
         this.extensions = extensions;
         this.actionInvokeGenerator = actionInvokeGenerator;
         this.extensionsInvoker = extensionsInvoker;
         this.parametersGenerator = parametersGenerator;
+        this.exceptionHandler = exceptionHandler;
     }
 
     @Override
