@@ -6,4 +6,5 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SocketAction {
     String value() default "";
+    Class<?> payloadClass();
 }
