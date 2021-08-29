@@ -5,5 +5,5 @@ import com.talker.websocketlibrary.handlers.HandlerEvent;
 import java.util.List;
 
 public interface IActionInvokerExtensionsInvoker {
-    void invokeAll(List<IActionInvokerExtension> extensions, ActionInvoke actionInvoke, Object controller, HandlerEvent handlerEvent) throws Exception;
+    void invokeAll(List<IActionInvokerExtension> extensions, ActionInvoke actionInvoke, Object controller, HandlerEvent handlerEvent, Payload payload) throws Exception;
 }

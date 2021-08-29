@@ -1,5 +1,7 @@
 package com.talker.websocketlibrary.reflections;
 
+import com.google.gson.Gson;
+import com.talker.websocketlibrary.binding.IDataBinder;
 import com.talker.websocketlibrary.handlers.HandlerEvent;
 import com.talker.websocketlibrary.messaging.MessageService;
 import com.talker.websocketlibrary.reflections.exceptions.ActionInvokerException;
@@ -15,6 +17,8 @@ public class DefaultActionInvoker implements IActionInvoker {
     IActionInvokerExtensionsInvoker extensionsInvoker;
     IActionMethodParametersGenerator parametersGenerator;
     IExceptionHandler exceptionHandler;
+    IPayloadGenerator payloadGenerator;
+    IDataBinder dataBinder;
 
     public DefaultActionInvoker(List<IActionInvokerExtension> extensions, IActionInvokeGenerator actionInvokeGenerator, IActionInvokerExtensionsInvoker extensionsInvoker, IActionMethodParametersGenerator parametersGenerator, IExceptionHandler exceptionHandler) {
         this.extensions = extensions;
@@ -26,9 +30,10 @@ public class DefaultActionInvoker implements IActionInvoker {
 
     @Override
     public void invoke(ActionModel actionModel, Object controller, Command command, HandlerEvent handlerEvent) {
+        Payload payload = payloadGenerator.generate(actionModel.getSocketActionAnnotation().payloadClass(), dataBinder.bind(command.getDataText(), actionModel.getSocketActionAnnotation().payloadClass()));
         final ActionInvoke actionInvoke = actionInvokeGenerator.generate(actionModel, command);
         try {
-            extensionsInvoker.invokeAll(extensions, actionInvoke, controller, handlerEvent);
+            extensionsInvoker.invokeAll(extensions, actionInvoke, controller, handlerEvent, payload);
             Object[] params = parametersGenerator.generate(actionModel.method, actionInvoke.getParameters());
             actionModel.method.invoke(controller, params);
         }
