@@ -32,7 +32,7 @@ public class DefaultActionInvoker implements IActionInvoker {
 
     @Override
     public void invoke(ActionModel actionModel, Object controller, Command command, HandlerEvent handlerEvent) {
-        Payload payload = payloadGenerator.generate(actionModel.getSocketActionAnnotation().payloadClass(), dataBinder.bind(command.getDataText(), actionModel.getSocketActionAnnotation().payloadClass()));
+        Payload payload = payloadGenerator.generate(actionModel.getSocketActionAnnotation().payloadClass(), dataBinder.bind(command.getDataText(), actionModel.getSocketActionAnnotation().payloadClass()).data);
         final ActionInvoke actionInvoke = actionInvokeGenerator.generate(actionModel, command);
         try {
             extensionsInvoker.invokeAll(extensions, actionInvoke, controller, handlerEvent, payload);
