@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DefaultActionInvokerExtensionInvoker implements IActionInvokerExtensionInvoker{
     @Override
-    public void invoke(IActionInvokerExtension extension, ActionInvoke actionInvoke, Object controller, HandlerEvent handlerEvent) throws Exception{
-        extension.beforeInvoke(actionInvoke, controller, handlerEvent);
+    public void invoke(IActionInvokerExtension extension, ActionInvoke actionInvoke, Object controller, HandlerEvent handlerEvent, Payload payload) throws Exception{
+        extension.beforeInvoke(actionInvoke, controller, handlerEvent, payload);
     }
 }

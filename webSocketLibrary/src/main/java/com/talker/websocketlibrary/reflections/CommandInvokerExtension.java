@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CommandInvokerExtension implements IActionInvokerExtension{
     @Override
-    public void beforeInvoke(ActionInvoke actionInvoke, Object controller, HandlerEvent handlerEvent) {
+    public void beforeInvoke(ActionInvoke actionInvoke, Object controller, HandlerEvent handlerEvent, Payload payload) {
         actionInvoke.addParameter(actionInvoke.getCommand(), Command.class, 0);
     }
 }

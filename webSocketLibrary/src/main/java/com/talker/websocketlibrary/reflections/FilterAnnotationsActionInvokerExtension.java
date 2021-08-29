@@ -2,11 +2,9 @@ package com.talker.websocketlibrary.reflections;
 
 import com.talker.websocketlibrary.handlers.HandlerEvent;
 import com.talker.websocketlibrary.reflections.annotations.FilterClassName;
-import com.talker.websocketlibrary.reflections.exceptions.ActionInvokerException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +18,7 @@ public class FilterAnnotationsActionInvokerExtension implements IActionInvokerEx
     }
 
     @Override
-    public void beforeInvoke(ActionInvoke actionInvoke, Object controller, HandlerEvent handlerEvent) throws Exception{
+    public void beforeInvoke(ActionInvoke actionInvoke, Object controller, HandlerEvent handlerEvent, Payload payload) throws Exception{
         List<FilterClassName> filterClassNames = Arrays.stream(actionInvoke.getActionModel().method.getAnnotations())
                 .filter(x -> x.annotationType().isAnnotationPresent(FilterClassName.class))
                 .map(x -> x.annotationType().getAnnotation(FilterClassName.class))

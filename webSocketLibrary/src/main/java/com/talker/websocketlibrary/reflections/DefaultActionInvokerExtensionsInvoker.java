@@ -17,7 +17,7 @@ public class DefaultActionInvokerExtensionsInvoker implements  IActionInvokerExt
     @Override
     public void invokeAll(List<IActionInvokerExtension> extensions, ActionInvoke actionInvoke, Object controller, HandlerEvent handlerEvent, Payload payload) throws ActionInvokerException, Exception{
         for (IActionInvokerExtension extension : extensions) {
-            invoker.invoke(extension, actionInvoke, controller, handlerEvent);
+            invoker.invoke(extension, actionInvoke, controller, handlerEvent, payload);
         }
     }
 }

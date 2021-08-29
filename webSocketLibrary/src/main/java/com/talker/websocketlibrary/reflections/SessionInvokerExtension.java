@@ -16,7 +16,7 @@ public class SessionInvokerExtension implements IActionInvokerExtension{
     }
 
     @Override
-    public void beforeInvoke(ActionInvoke actionInvoke, Object controller, HandlerEvent handlerEvent) {
+    public void beforeInvoke(ActionInvoke actionInvoke, Object controller, HandlerEvent handlerEvent, Payload payload) {
         Optional<Session> session = sessionService.getSession(actionInvoke.getCommand().getSessionId());
         actionInvoke.addParameter(session.orElse(null), Session.class, 0);
     }
