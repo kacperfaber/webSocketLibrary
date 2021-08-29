@@ -1,5 +1,6 @@
 package com.talker.websocketlibrary.reflections;
 
+import com.talker.websocketlibrary.binding.BindingResult;
 import com.talker.websocketlibrary.binding.IDataBinder;
 import com.talker.websocketlibrary.handlers.HandlerEvent;
 import org.springframework.stereotype.Component;
@@ -8,12 +9,24 @@ import java.lang.reflect.Parameter;
 
 @Component
 public class PayloadInvokerExtension implements IActionInvokerExtension {
+    IDataBinder dataBinder;
+
+    public PayloadInvokerExtension(IDataBinder dataBinder) {
+        this.dataBinder = dataBinder;
+    }
+
     @Override
     public void beforeInvoke(ActionInvoke actionInvoke, Object controller, HandlerEvent handlerEvent, Payload payload) {
-        Parameter[] params = actionInvoke.getActionModel().method.getParameters();
-        for (Parameter parameter : params) {
-            if (parameter.isAnnotationPresent(com.talker.websocketlibrary.reflections.annotations.Payload.class) || parameter.getType().isAssignableFrom(payload.getPayloadClass())) {
-                actionInvoke.addParameter(new InvokeParameter(payload.getPayloadClass(), payload.getPayloadObject(), 0));
+        if (payload.getPayloadClass() != Object.class) {
+            actionInvoke.addParameter(new InvokeParameter(payload.getPayloadClass(), payload.getPayloadObject(), 0));
+        }
+        else {
+            for (Parameter p : actionInvoke.getActionModel().method.getParameters()) {
+                if (p.isAnnotationPresent(com.talker.websocketlibrary.reflections.annotations.Payload.class)) {
+                    Class<?> parameterClass = p.getType();
+                    BindingResult<?> bindingResult = dataBinder.bind(actionInvoke.getCommand().getDataText(), parameterClass);
+                    actionInvoke.addParameter(new InvokeParameter(parameterClass, bindingResult.data, 0));
+                }
             }
         }
     }
