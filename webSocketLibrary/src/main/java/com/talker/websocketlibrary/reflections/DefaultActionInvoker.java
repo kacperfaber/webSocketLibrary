@@ -20,12 +20,14 @@ public class DefaultActionInvoker implements IActionInvoker {
     IPayloadGenerator payloadGenerator;
     IDataBinder dataBinder;
 
-    public DefaultActionInvoker(List<IActionInvokerExtension> extensions, IActionInvokeGenerator actionInvokeGenerator, IActionInvokerExtensionsInvoker extensionsInvoker, IActionMethodParametersGenerator parametersGenerator, IExceptionHandler exceptionHandler) {
+    public DefaultActionInvoker(List<IActionInvokerExtension> extensions, IActionInvokeGenerator actionInvokeGenerator, IActionInvokerExtensionsInvoker extensionsInvoker, IActionMethodParametersGenerator parametersGenerator, IExceptionHandler exceptionHandler, IPayloadGenerator payloadGenerator, IDataBinder dataBinder) {
         this.extensions = extensions;
         this.actionInvokeGenerator = actionInvokeGenerator;
         this.extensionsInvoker = extensionsInvoker;
         this.parametersGenerator = parametersGenerator;
         this.exceptionHandler = exceptionHandler;
+        this.payloadGenerator = payloadGenerator;
+        this.dataBinder = dataBinder;
     }
 
     @Override
