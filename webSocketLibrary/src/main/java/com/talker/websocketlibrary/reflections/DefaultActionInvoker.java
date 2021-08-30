@@ -12,16 +12,15 @@ import java.util.List;
 
 @Component
 public class DefaultActionInvoker implements IActionInvoker {
-    List<IActionInvokerExtension> extensions;
     IActionInvokeGenerator actionInvokeGenerator;
     IActionInvokerExtensionsInvoker extensionsInvoker;
     IActionMethodParametersGenerator parametersGenerator;
     IExceptionHandler exceptionHandler;
     IPayloadGenerator payloadGenerator;
     IDataBinder dataBinder;
+    ISortedActionInvokerExtensionsProvider sortedExtensionsProvider;
 
-    public DefaultActionInvoker(List<IActionInvokerExtension> extensions, IActionInvokeGenerator actionInvokeGenerator, IActionInvokerExtensionsInvoker extensionsInvoker, IActionMethodParametersGenerator parametersGenerator, IExceptionHandler exceptionHandler, IPayloadGenerator payloadGenerator, IDataBinder dataBinder) {
-        this.extensions = extensions;
+    public DefaultActionInvoker(IActionInvokeGenerator actionInvokeGenerator, IActionInvokerExtensionsInvoker extensionsInvoker, IActionMethodParametersGenerator parametersGenerator, IExceptionHandler exceptionHandler, IPayloadGenerator payloadGenerator, IDataBinder dataBinder) {
         this.actionInvokeGenerator = actionInvokeGenerator;
         this.extensionsInvoker = extensionsInvoker;
         this.parametersGenerator = parametersGenerator;
@@ -32,9 +31,10 @@ public class DefaultActionInvoker implements IActionInvoker {
 
     @Override
     public void invoke(ActionModel actionModel, Object controller, Command command, HandlerEvent handlerEvent) {
-        Payload payload = payloadGenerator.generate(actionModel.getSocketActionAnnotation().payloadClass(), dataBinder.bind(command.getDataText(), actionModel.getSocketActionAnnotation().payloadClass()).data);
         final ActionInvoke actionInvoke = actionInvokeGenerator.generate(actionModel, command);
         try {
+            Payload payload = payloadGenerator.generate(actionModel.getSocketActionAnnotation().payloadClass(), dataBinder.bind(command.getDataText(), actionModel.getSocketActionAnnotation().payloadClass()).data);
+            List<ActionInvokerExtensionModel> extensions = sortedExtensionsProvider.provide();
             extensionsInvoker.invokeAll(extensions, actionInvoke, controller, handlerEvent, payload);
             Object[] params = parametersGenerator.generate(actionModel.method, actionInvoke.getParameters());
             actionModel.method.invoke(controller, params);
