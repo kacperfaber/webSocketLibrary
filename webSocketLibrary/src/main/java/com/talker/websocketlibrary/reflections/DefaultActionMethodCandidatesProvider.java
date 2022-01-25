@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class DefaultActionMethodCandidatesProvider implements IActionMethodCandidatesProvider {
@@ -14,6 +15,6 @@ public class DefaultActionMethodCandidatesProvider implements IActionMethodCandi
         return Arrays
                 .stream(actionClass.getDeclaredMethods())
                 .filter(i -> i.getDeclaredAnnotation(SocketAction.class) != null)
-                .toList();
+                .collect(Collectors.toList());
     }
 }

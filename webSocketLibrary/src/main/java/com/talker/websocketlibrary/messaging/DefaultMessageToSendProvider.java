@@ -5,19 +5,15 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
-public class DefaultMessageToSendProvider implements IMessagesToSendProvider{
+public class DefaultMessageToSendProvider implements IMessagesToSendProvider {
     ServerSingleton serverSingleton;
+
     @Override
     public List<MessageToSend> provide(String userId) {
-        List<MessageToSend> list = serverSingleton.
-                getInMemoryStorage().
-                getMessageToSendList().
-                stream().
-                filter(x -> x.userId.equals(userId)).
-                toList();
-        Collections.sort(list);
+        List<MessageToSend> list = serverSingleton.getInMemoryStorage().getMessageToSendList().stream().filter(x -> x.userId.equals(userId)).sorted().collect(Collectors.toList());
         return list;
     }
 }
