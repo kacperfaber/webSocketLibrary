@@ -2,7 +2,11 @@ package com.talker.websocketlibrary.reflections.tests;
 
 import com.talker.websocketlibrary.reflections.DefaultActionMethodParametersGenerator;
 import com.talker.websocketlibrary.reflections.InvokeParameter;
+import com.talker.websocketlibrary.reflections.annotations.SocketController;
 import org.junit.Test;
+import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
+import org.reflections.scanners.TypeAnnotationsScanner;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
