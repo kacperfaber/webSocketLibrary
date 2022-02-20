@@ -12,6 +12,10 @@ import java.util.stream.Collectors;
 public class ValidActionMethodInvokerProvider implements IValidActionMethodInvokerProvider{
     public List<IActionMethodInvoker> invokers;
 
+    public ValidActionMethodInvokerProvider(List<IActionMethodInvoker> invokers) {
+        this.invokers = invokers;
+    }
+
     @Override
     public IActionMethodInvoker provide(Class<?> returnType) throws MethodInvokerNotFoundException {
         // TODO: simplify it.
