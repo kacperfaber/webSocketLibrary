@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class DefaultActionInvoker implements IActionInvoker {
@@ -19,6 +20,8 @@ public class DefaultActionInvoker implements IActionInvoker {
     IPayloadGenerator payloadGenerator;
     IDataBinder dataBinder;
     ISortedActionInvokerExtensionsProvider sortedExtensionsProvider;
+    IMethodReturnTypeProvider returnTypeProvider;
+    IValidActionMethodInvokerProvider methodInvokerProvider;
 
     public DefaultActionInvoker(IActionInvokeGenerator actionInvokeGenerator, IActionInvokerExtensionsInvoker extensionsInvoker, IActionMethodParametersGenerator parametersGenerator, IExceptionHandler exceptionHandler, IPayloadGenerator payloadGenerator, IDataBinder dataBinder, ISortedActionInvokerExtensionsProvider sortedExtensionsProvider) {
         this.actionInvokeGenerator = actionInvokeGenerator;
@@ -38,7 +41,8 @@ public class DefaultActionInvoker implements IActionInvoker {
             List<ActionInvokerExtensionModel> extensions = sortedExtensionsProvider.provide();
             extensionsInvoker.invokeAll(extensions, actionInvoke, controller, handlerEvent, payload);
             Object[] params = parametersGenerator.generate(actionModel.method, actionInvoke.getParameters());
-            actionModel.method.invoke(controller, params);
+            IActionMethodInvoker methodInvoker = methodInvokerProvider.provide(returnTypeProvider.provide(actionModel.method)); // TODO: missing 'void' interpreter.
+            Optional<Object> methodInvokerResult = methodInvoker.invoke(actionModel.getMethod(), controller, params);
         }
         catch (Exception e) {
             exceptionHandler.handle(e, actionInvoke, handlerEvent);
