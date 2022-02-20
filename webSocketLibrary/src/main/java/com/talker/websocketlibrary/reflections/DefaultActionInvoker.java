@@ -1,13 +1,9 @@
 package com.talker.websocketlibrary.reflections;
 
-import com.google.gson.Gson;
 import com.talker.websocketlibrary.binding.IDataBinder;
 import com.talker.websocketlibrary.handlers.HandlerEvent;
-import com.talker.websocketlibrary.messaging.MessageService;
-import com.talker.websocketlibrary.reflections.exceptions.ActionInvokerException;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,8 +18,9 @@ public class DefaultActionInvoker implements IActionInvoker {
     ISortedActionInvokerExtensionsProvider sortedExtensionsProvider;
     IMethodReturnTypeProvider returnTypeProvider;
     IActionMethodInvoker methodInvoker;
+    IMethodInvokerResultInterpreter methodInvokerResultInterpreter;
 
-    public DefaultActionInvoker(IActionInvokeGenerator actionInvokeGenerator, IActionInvokerExtensionsInvoker extensionsInvoker, IActionMethodParametersGenerator parametersGenerator, IExceptionHandler exceptionHandler, IPayloadGenerator payloadGenerator, IDataBinder dataBinder, ISortedActionInvokerExtensionsProvider sortedExtensionsProvider) {
+    public DefaultActionInvoker(IMethodInvokerResultInterpreter methodInvokerResultInterpreter, IActionInvokeGenerator actionInvokeGenerator, IActionInvokerExtensionsInvoker extensionsInvoker, IActionMethodParametersGenerator parametersGenerator, IExceptionHandler exceptionHandler, IPayloadGenerator payloadGenerator, IDataBinder dataBinder, ISortedActionInvokerExtensionsProvider sortedExtensionsProvider, IMethodReturnTypeProvider returnTypeProvider, IActionMethodInvoker methodInvoker) {
         this.actionInvokeGenerator = actionInvokeGenerator;
         this.extensionsInvoker = extensionsInvoker;
         this.parametersGenerator = parametersGenerator;
@@ -31,6 +28,9 @@ public class DefaultActionInvoker implements IActionInvoker {
         this.payloadGenerator = payloadGenerator;
         this.dataBinder = dataBinder;
         this.sortedExtensionsProvider = sortedExtensionsProvider;
+        this.returnTypeProvider = returnTypeProvider;
+        this.methodInvoker = methodInvoker;
+        this.methodInvokerResultInterpreter = methodInvokerResultInterpreter;
     }
 
     @Override
@@ -42,8 +42,8 @@ public class DefaultActionInvoker implements IActionInvoker {
             extensionsInvoker.invokeAll(extensions, actionInvoke, controller, handlerEvent, payload);
             Object[] params = parametersGenerator.generate(actionModel.method, actionInvoke.getParameters());
             Optional<Object> methodInvokerResult = methodInvoker.invoke(actionModel.getMethod(), controller, params);
-        }
-        catch (Exception e) {
+            methodInvokerResultInterpreter.interpret(methodInvokerResult);
+        } catch (Exception e) {
             exceptionHandler.handle(e, actionInvoke, handlerEvent);
         }
     }
