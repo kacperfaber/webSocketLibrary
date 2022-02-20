@@ -1,0 +1,9 @@
+I want to add 'return values' feature in ControllerBase.
+
+example:
+
+class Controller [extends ControllerBase] - the key
+
+    public ActionResult sayHello() {
+        return message("hello")
+    }
