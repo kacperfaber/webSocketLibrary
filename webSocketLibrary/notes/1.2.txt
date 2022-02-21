@@ -12,3 +12,4 @@ Change log:
 - added ResultInterpreter, you can implement it to interpret values returned from socket actions.
 - DefaultActionInvoker it's using IActionMethodInvoker to invoke method, it returns OPTIONAL<OBJECT> that is interpreted by result interpreter.
 - WARNING: system using all ResultInterpreter that matches to 'methodInvokerResult'
+...
