@@ -12,7 +12,7 @@ public class NullResultInterpreter implements IResultInterpreter{
     }
 
     @Override
-    public void interpret(Optional<Object> methodInvokerResult) {
+    public void interpret(Optional<Object> methodInvokerResult, Command command) {
 
     }
 }

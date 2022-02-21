@@ -3,5 +3,5 @@ package com.talker.websocketlibrary.reflections;
 import java.util.Optional;
 
 public interface IMethodInvokerResultInterpreter {
-    void interpret(Optional<Object> methodInvokerResult);
+    void interpret(Optional<Object> methodInvokerResult, Command command) throws Exception;
 }

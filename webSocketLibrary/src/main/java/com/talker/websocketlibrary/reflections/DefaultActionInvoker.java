@@ -42,7 +42,7 @@ public class DefaultActionInvoker implements IActionInvoker {
             extensionsInvoker.invokeAll(extensions, actionInvoke, controller, handlerEvent, payload);
             Object[] params = parametersGenerator.generate(actionModel.method, actionInvoke.getParameters());
             Optional<Object> methodInvokerResult = methodInvoker.invoke(actionModel.getMethod(), controller, params);
-            methodInvokerResultInterpreter.interpret(methodInvokerResult);
+            methodInvokerResultInterpreter.interpret(methodInvokerResult, command);
         } catch (Exception e) {
             exceptionHandler.handle(e, actionInvoke, handlerEvent);
         }

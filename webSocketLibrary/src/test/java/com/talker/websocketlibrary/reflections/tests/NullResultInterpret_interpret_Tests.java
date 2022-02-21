@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class NullResultInterpret_interpret_Tests {
     void exec(Optional<Object> opt) {
-        new NullResultInterpreter().interpret(opt);
+        new NullResultInterpreter().interpret(opt, null);
     }
     @Test
     public void doesNotThrow() {
