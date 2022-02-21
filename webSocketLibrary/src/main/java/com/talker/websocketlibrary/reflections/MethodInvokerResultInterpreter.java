@@ -15,6 +15,12 @@ public class MethodInvokerResultInterpreter implements IMethodInvokerResultInter
 
     @Override
     public void interpret(Optional<Object> methodInvokerResult, Command command) {
-        interpreterList.stream().filter(x -> x.canInterpret(methodInvokerResult)).forEach(x -> x.interpret(methodInvokerResult, command));
+        interpreterList.stream().filter(x -> x.canInterpret(methodInvokerResult)).forEach(x -> {
+            try {
+                x.interpret(methodInvokerResult, command);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }
