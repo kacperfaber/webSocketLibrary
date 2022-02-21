@@ -2,7 +2,6 @@ package com.talker.websocketlibrary;
 
 import com.talker.websocketlibrary.binding.IDataBinder;
 import com.talker.websocketlibrary.messaging.MessageService;
-import com.talker.websocketlibrary.messaging.SendMessage;
 import com.talker.websocketlibrary.messaging.SessionService;
 import com.talker.websocketlibrary.messaging.UserSession;
 import com.talker.websocketlibrary.reflections.BroadcastResult;
