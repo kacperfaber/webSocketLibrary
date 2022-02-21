@@ -53,7 +53,7 @@ public abstract class ControllerBase {
         return dataBinder.bind(command.getDataText(), tClass).data;
     }
 
-    public ResponseResult response(String name, Object data, Class<Object> dataClass) {
+    public <T> ResponseResult response(String name, T data, Class<T> dataClass) {
         return new ResponseResult(name, data, dataClass);
     }
 

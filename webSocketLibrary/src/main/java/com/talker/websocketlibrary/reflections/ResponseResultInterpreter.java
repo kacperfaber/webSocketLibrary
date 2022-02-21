@@ -22,6 +22,6 @@ public class ResponseResultInterpreter implements IResultInterpreter{
     @Override
     public void interpret(Optional<Object> methodInvokerResult, Command command) throws IOException {
         ResponseResult response = (ResponseResult) methodInvokerResult.get();
-        messageService.sendToSession(command.getSessionId(), response.name, response.data, response.dataClass);
+        messageService.sendToSession(command.getSessionId(), response.name, response.data, (Class<? super Object>) response.dataClass);
     }
 }
