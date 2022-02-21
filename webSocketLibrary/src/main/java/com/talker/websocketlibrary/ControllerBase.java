@@ -6,6 +6,7 @@ import com.talker.websocketlibrary.messaging.SendMessage;
 import com.talker.websocketlibrary.messaging.SessionService;
 import com.talker.websocketlibrary.messaging.UserSession;
 import com.talker.websocketlibrary.reflections.Command;
+import com.talker.websocketlibrary.reflections.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -50,5 +51,13 @@ public abstract class ControllerBase {
 
     public <T> T bind(Command command, Class<T> tClass) {
         return dataBinder.bind(command.getDataText(), tClass).data;
+    }
+
+    public ResponseResult response(String name, Object data, Class<Object> dataClass) {
+        return new ResponseResult(name, data, dataClass);
+    }
+
+    public ResponseResult emptyResponse(String name) {
+        return new ResponseResult(name, new Object(), Object.class);
     }
 }
