@@ -5,6 +5,7 @@ import com.talker.websocketlibrary.messaging.MessageService;
 import com.talker.websocketlibrary.messaging.SendMessage;
 import com.talker.websocketlibrary.messaging.SessionService;
 import com.talker.websocketlibrary.messaging.UserSession;
+import com.talker.websocketlibrary.reflections.BroadcastResult;
 import com.talker.websocketlibrary.reflections.Command;
 import com.talker.websocketlibrary.reflections.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,7 @@ public abstract class ControllerBase {
     }
 
     public <T> void broadcast(String name, T data, Class<T> dataClass) throws IOException {
-        SendMessage<T> sendMessage = new SendMessage<>(name, data, dataClass);
-        for (WebSocketSession session : sessionService.getAllSessions()) {
-            messageService.sendToSession(session.getId(), name, data, dataClass);
-        }
+        messageService.broadcast(name, data, dataClass);
     }
 
     public int kick(String userId) throws IOException {
@@ -53,11 +51,15 @@ public abstract class ControllerBase {
         return dataBinder.bind(command.getDataText(), tClass).data;
     }
 
-    public <T> ResponseResult response(String name, T data, Class<T> dataClass) {
+    public <T> ResponseResult responseResult(String name, T data, Class<T> dataClass) {
         return new ResponseResult(name, data, dataClass);
     }
 
     public ResponseResult emptyResponse(String name) {
         return new ResponseResult(name, new Object(), Object.class);
+    }
+
+    public <T> BroadcastResult broadcastResult(String name, T data, Class<T> dataClass) {
+        return new BroadcastResult(name, data, dataClass);
     }
 }
