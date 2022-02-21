@@ -60,4 +60,10 @@ public class MessageService {
             return false;
         }
     }
+
+    public <T> void broadcast(String name, T data, Class<T> dataClass) {
+        for (WebSocketSession sess : sessionService.getAllSessions()) {
+            sendToSession(sess, name, data, dataClass);
+        }
+    }
 }
