@@ -37,7 +37,7 @@ public class BaseMessageReceivedEventHandler implements IEventHandler {
         if (optionalMessage.isPresent()) {
             WebSocketMessage webSocketMessage = optionalMessage.get();
             if (messageTextValidator.validate(webSocketMessage.getPayload().toString())) {
-                MessagePrototype messageProto = reader.read(webSocketMessage.getPayload().toString());
+                MessagePrototype messageProto = reader.readMessage(webSocketMessage.getPayload().toString());
                 Message message = messageGenerator.generate(messageProto, handlerEvent.getAuthenticatedUserId().orElse(null));
                 try {
                     actionCommandsInvoker.invoke(applicationContext.getBean(Model.class), message, handlerEvent);

@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DefaultMessageReader_read_Tests {
     MessagePrototype exec(String text) throws Exception {
         DefaultMessageReader reader = new DefaultMessageReader();
-        return reader.read(text);
+        return reader.readMessage(text);
     }
 
     @Test
