@@ -1,11 +1,8 @@
 package com.talker.websocketlibrary.messaging;
 
-import org.springframework.stereotype.Component;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Component
 public class DefaultMessageReader implements IMessageReader {
 
     @Override
