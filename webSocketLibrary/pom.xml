@@ -6,7 +6,7 @@
 
     <groupId>pl.kacperfaber.websocketlibrary</groupId>
     <artifactId>webSocketLibrary</artifactId>
-    <version>1.2</version>
+    <version>1.2.01</version>
     <dependencies>
         <dependency>
             <groupId>com.google.code.gson</groupId>
