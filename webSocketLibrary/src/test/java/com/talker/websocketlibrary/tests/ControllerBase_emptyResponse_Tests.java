@@ -2,16 +2,12 @@ package com.talker.websocketlibrary.tests;
 
 import com.talker.websocketlibrary.ControllerBase;
 import com.talker.websocketlibrary.reflections.ResponseResult;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.UUID;
 
 public class ControllerBase_emptyResponse_Tests {
-    class Controller extends ControllerBase {
-    }
-
     ResponseResult exec(String name) {
         return new Controller().emptyResponse(name);
     }
@@ -45,5 +41,8 @@ public class ControllerBase_emptyResponse_Tests {
     @Test
     public void dataClassIsObject() {
         Assertions.assertEquals(Object.class, exec("name").dataClass);
+    }
+
+    class Controller extends ControllerBase {
     }
 }

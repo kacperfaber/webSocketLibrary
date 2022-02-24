@@ -3,6 +3,7 @@ package com.talker.websocketlibrary.reflections;
 public class Payload {
     final Class<?> payloadClass;
     private Object payloadObject;
+
     public Payload(Class<?> payloadClass) {
         this.payloadClass = payloadClass;
     }

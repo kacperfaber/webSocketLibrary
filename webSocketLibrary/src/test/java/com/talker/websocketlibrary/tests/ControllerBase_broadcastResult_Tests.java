@@ -8,9 +8,6 @@ import org.junit.jupiter.api.Assertions;
 import java.util.UUID;
 
 public class ControllerBase_broadcastResult_Tests {
-    class Controller extends ControllerBase {
-    }
-
     <T> BroadcastResult exec(String name, T data, Class<T> dataClass) {
         return new Controller().broadcastResult(name, data, dataClass);
     }
@@ -40,5 +37,8 @@ public class ControllerBase_broadcastResult_Tests {
     @Test
     public void expectedDataClass() {
         Assertions.assertEquals(String.class, exec("name", "data", String.class).dataClass);
+    }
+
+    class Controller extends ControllerBase {
     }
 }

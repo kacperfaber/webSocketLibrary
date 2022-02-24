@@ -92,6 +92,6 @@ public class SessionService {
     }
 
     public Optional<Session> getSession(String sessionId) {
-        return sessions.stream().filter(x->x.getSessionId().equals(sessionId)).findFirst();
+        return sessions.stream().filter(x -> x.getSessionId().equals(sessionId)).findFirst();
     }
 }

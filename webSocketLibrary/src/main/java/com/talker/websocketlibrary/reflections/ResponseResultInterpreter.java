@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 @Component
-public class ResponseResultInterpreter implements IResultInterpreter{
+public class ResponseResultInterpreter implements IResultInterpreter {
     public MessageService messageService;
 
     public ResponseResultInterpreter(MessageService messageService) {

@@ -1,7 +1,6 @@
 package com.talker.websocketlibrary.reflections.annotations;
 
 import com.talker.websocketlibrary.WebSocketLibraryConfiguration;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 

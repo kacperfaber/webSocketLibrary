@@ -6,10 +6,8 @@ import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
 
 import java.util.List;
-import java.util.UUID;
 
 @Component
 public class BaseMessageHandler implements WebSocketHandler {
@@ -26,7 +24,7 @@ public class BaseMessageHandler implements WebSocketHandler {
     void handle(WebSocketSession session, WebSocketMessage message, CloseStatus status, HandlerEventKind handlerEventKind) throws Exception {
         final HandlerEvent handlerEvent = handlerEventGenerator.generate(session, message, status, handlerEventKind);
         for (IEventHandler handler : eventHandlers) {
-            if (handler.canHandle(handlerEvent)){
+            if (handler.canHandle(handlerEvent)) {
                 handler.handle(handlerEvent);
             }
         }

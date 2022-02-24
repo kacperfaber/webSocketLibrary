@@ -3,7 +3,6 @@ package com.talker.websocketlibrary.reflections;
 import com.talker.websocketlibrary.binding.BindingResult;
 import com.talker.websocketlibrary.binding.IDataBinder;
 import com.talker.websocketlibrary.handlers.HandlerEvent;
-import com.talker.websocketlibrary.reflections.annotations.ActionInvokerExtension;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Parameter;
@@ -20,8 +19,7 @@ public class PayloadInvokerExtension implements IActionInvokerExtension {
     public void beforeInvoke(ActionInvoke actionInvoke, Object controller, HandlerEvent handlerEvent, Payload payload) {
         if (payload.getPayloadClass() != Object.class) {
             actionInvoke.addParameter(new InvokeParameter(payload.getPayloadClass(), payload.getPayloadObject(), 0, ParameterKind.Payload));
-        }
-        else {
+        } else {
             for (Parameter p : actionInvoke.getActionModel().method.getParameters()) {
                 if (p.isAnnotationPresent(com.talker.websocketlibrary.reflections.annotations.Payload.class)) {
                     Class<?> parameterClass = p.getType();

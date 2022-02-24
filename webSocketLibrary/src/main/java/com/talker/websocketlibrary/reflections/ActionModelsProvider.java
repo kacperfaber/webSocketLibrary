@@ -24,7 +24,7 @@ public class ActionModelsProvider implements IActionModelsProvider {
         List<ActionModel> actionModels = new ArrayList<>();
         Set<Class<?>> classes = classesProvider.provide(prefix);
         for (Class<?> c : classes) {
-            for (Method method : methodsProvider.provide(c)){
+            for (Method method : methodsProvider.provide(c)) {
                 actionModels.add(actionModelLoader.load(method, c));
             }
         }

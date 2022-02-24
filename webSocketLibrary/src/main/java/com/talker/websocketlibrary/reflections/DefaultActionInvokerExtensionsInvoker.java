@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class DefaultActionInvokerExtensionsInvoker implements  IActionInvokerExtensionsInvoker{
+public class DefaultActionInvokerExtensionsInvoker implements IActionInvokerExtensionsInvoker {
     IActionInvokerExtensionInvoker invoker;
 
     public DefaultActionInvokerExtensionsInvoker(IActionInvokerExtensionInvoker invoker) {
@@ -15,7 +15,7 @@ public class DefaultActionInvokerExtensionsInvoker implements  IActionInvokerExt
     }
 
     @Override
-    public void invokeAll(List<ActionInvokerExtensionModel> extensions, ActionInvoke actionInvoke, Object controller, HandlerEvent handlerEvent, Payload payload) throws ActionInvokerException, Exception{
+    public void invokeAll(List<ActionInvokerExtensionModel> extensions, ActionInvoke actionInvoke, Object controller, HandlerEvent handlerEvent, Payload payload) throws ActionInvokerException, Exception {
         for (ActionInvokerExtensionModel extensionModel : extensions) {
             invoker.invoke(extensionModel.getObject(), actionInvoke, controller, handlerEvent, payload);
         }

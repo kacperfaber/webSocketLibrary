@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class MethodInvokerResultInterpreter implements IMethodInvokerResultInterpreter{
+public class MethodInvokerResultInterpreter implements IMethodInvokerResultInterpreter {
     public final List<IResultInterpreter> interpreterList;
 
     public MethodInvokerResultInterpreter(List<IResultInterpreter> interpreterList) {

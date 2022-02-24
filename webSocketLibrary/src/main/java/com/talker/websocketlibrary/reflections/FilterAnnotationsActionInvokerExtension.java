@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class FilterAnnotationsActionInvokerExtension implements IActionInvokerExtension{
+public class FilterAnnotationsActionInvokerExtension implements IActionInvokerExtension {
     ApplicationContext applicationContext;
 
     public FilterAnnotationsActionInvokerExtension(ApplicationContext applicationContext) {
@@ -18,11 +18,8 @@ public class FilterAnnotationsActionInvokerExtension implements IActionInvokerEx
     }
 
     @Override
-    public void beforeInvoke(ActionInvoke actionInvoke, Object controller, HandlerEvent handlerEvent, Payload payload) throws Exception{
-        List<FilterClassName> filterClassNames = Arrays.stream(actionInvoke.getActionModel().method.getAnnotations())
-                .filter(x -> x.annotationType().isAnnotationPresent(FilterClassName.class))
-                .map(x -> x.annotationType().getAnnotation(FilterClassName.class))
-                .collect(Collectors.toList());
+    public void beforeInvoke(ActionInvoke actionInvoke, Object controller, HandlerEvent handlerEvent, Payload payload) throws Exception {
+        List<FilterClassName> filterClassNames = Arrays.stream(actionInvoke.getActionModel().method.getAnnotations()).filter(x -> x.annotationType().isAnnotationPresent(FilterClassName.class)).map(x -> x.annotationType().getAnnotation(FilterClassName.class)).collect(Collectors.toList());
 
         for (FilterClassName filterClassName : filterClassNames) {
             for (Class<? extends IFilter> filterClass : filterClassName.value()) {

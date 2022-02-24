@@ -2,15 +2,10 @@ package com.talker.websocketlibrary.reflections.tests;
 
 import com.talker.websocketlibrary.reflections.DefaultActionMethodParametersGenerator;
 import com.talker.websocketlibrary.reflections.InvokeParameter;
-import com.talker.websocketlibrary.reflections.annotations.SocketController;
 import org.junit.Test;
-import org.reflections.Reflections;
-import org.reflections.scanners.SubTypesScanner;
-import org.reflections.scanners.TypeAnnotationsScanner;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,7 +30,7 @@ public class DefaultActionMethodParametersGenerator_generate_Tests {
     }
 
     @Test
-    public void notNull() throws Exception{
+    public void notNull() throws Exception {
         Method method = getClass().getDeclaredMethod("testMethod1", int.class, String.class);
         ArrayList<InvokeParameter> params = new ArrayList<>();
         params.add(new InvokeParameter(int.class, 5, 0));
@@ -45,7 +40,7 @@ public class DefaultActionMethodParametersGenerator_generate_Tests {
     }
 
     @Test
-    public void notEmpty() throws Exception{
+    public void notEmpty() throws Exception {
         Method method = getClass().getDeclaredMethod("testMethod1", int.class, String.class);
         ArrayList<InvokeParameter> params = new ArrayList<>();
         params.add(new InvokeParameter(int.class, 5, 0));
@@ -65,7 +60,7 @@ public class DefaultActionMethodParametersGenerator_generate_Tests {
     }
 
     @Test
-    public void expectedFirstItem() throws Exception{
+    public void expectedFirstItem() throws Exception {
         final int expected = 5;
         Method method = getClass().getDeclaredMethod("testMethod1", int.class, String.class);
         ArrayList<InvokeParameter> params = new ArrayList<>();
@@ -76,7 +71,7 @@ public class DefaultActionMethodParametersGenerator_generate_Tests {
     }
 
     @Test
-    public void expectedSecondItem() throws Exception{
+    public void expectedSecondItem() throws Exception {
         final String expected = "Hello World";
         Method method = getClass().getDeclaredMethod("testMethod1", int.class, String.class);
         ArrayList<InvokeParameter> params = new ArrayList<>();

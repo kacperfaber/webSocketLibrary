@@ -25,19 +25,19 @@ public class DefaultMessageReader_read_Tests {
     }
 
     @Test
-    public void expectedName() throws Exception{
+    public void expectedName() throws Exception {
         final String expected = UUID.randomUUID().toString();
         assertEquals(expected, exec(expected + " hello").getName());
     }
 
     @Test
-    public void expectedData() throws Exception{
+    public void expectedData() throws Exception {
         final String expected = UUID.randomUUID().toString();
         assertEquals(expected, exec("message-name " + expected).getData());
     }
 
     @Test
-    public void throwsIfDoesntContainWhiteSpace() throws Exception{
+    public void throwsIfDoesntContainWhiteSpace() throws Exception {
         assertThrows(Exception.class, () -> exec("message-name"));
     }
 }

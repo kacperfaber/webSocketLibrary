@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Method;
 
 @Component
-public class DefaultActionModelLoader implements IActionModelLoader{
+public class DefaultActionModelLoader implements IActionModelLoader {
     @Override
     public ActionModel load(Method method, Class<?> actionClass) {
         ActionModel action = new ActionModel();

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class DefaultSingleActionModelProvider implements ISingleActionModelProvider{
+public class DefaultSingleActionModelProvider implements ISingleActionModelProvider {
     @Override
     public ActionModel provide(List<ActionModel> actionModels, String commandName) throws Exception {
         if (actionModels.size() > 1) {

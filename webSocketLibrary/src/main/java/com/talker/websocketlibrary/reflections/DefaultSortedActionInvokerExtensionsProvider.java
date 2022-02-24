@@ -16,10 +16,6 @@ public class DefaultSortedActionInvokerExtensionsProvider implements ISortedActi
 
     @Override
     public List<ActionInvokerExtensionModel> provide() {
-        return extensions
-                .stream()
-                .map(x -> new ActionInvokerExtensionModel(x, x.getClass().getAnnotation(ActionInvokerExtension.class)))
-                .sorted((o1, o2) -> o1.annotation != null ? o1.annotation.weight() : 0)
-                .collect(Collectors.toList());
+        return extensions.stream().map(x -> new ActionInvokerExtensionModel(x, x.getClass().getAnnotation(ActionInvokerExtension.class))).sorted((o1, o2) -> o1.annotation != null ? o1.annotation.weight() : 0).collect(Collectors.toList());
     }
 }

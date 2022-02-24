@@ -17,22 +17,22 @@ public class BaseMessageReceivedEventHandler implements IEventHandler {
     IMessageGenerator messageGenerator;
     IMessageTextValidator messageTextValidator;
     ApplicationContext applicationContext;
+
     public BaseMessageReceivedEventHandler(ApplicationContext applicationContext, IActionCommandInvoker actionCommandsInvoker, IMessageReader reader, IMessageGenerator messageGenerator, IMessageTextValidator messageTextValidator) {
         this.actionCommandsInvoker = actionCommandsInvoker;
         this.reader = reader;
         this.messageGenerator = messageGenerator;
         this.messageTextValidator = messageTextValidator;
-        this.applicationContext=applicationContext;
+        this.applicationContext = applicationContext;
     }
 
     @Override
     public boolean canHandle(HandlerEvent handlerEvent) {
-        return handlerEvent.getKind() == HandlerEventKind.MessageReceived &&
-                handlerEvent.getMessage().isPresent();
+        return handlerEvent.getKind() == HandlerEventKind.MessageReceived && handlerEvent.getMessage().isPresent();
     }
 
     @Override
-    public void handle(HandlerEvent handlerEvent) throws Exception{
+    public void handle(HandlerEvent handlerEvent) throws Exception {
         Optional<WebSocketMessage> optionalMessage = handlerEvent.getMessage();
         if (optionalMessage.isPresent()) {
             WebSocketMessage webSocketMessage = optionalMessage.get();

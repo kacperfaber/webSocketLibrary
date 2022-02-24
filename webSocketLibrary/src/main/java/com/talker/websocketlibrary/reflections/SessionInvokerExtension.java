@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class SessionInvokerExtension implements IActionInvokerExtension{
+public class SessionInvokerExtension implements IActionInvokerExtension {
     SessionService sessionService;
 
     public SessionInvokerExtension(SessionService sessionService) {
