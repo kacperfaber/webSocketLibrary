@@ -10,6 +10,12 @@ import java.util.Optional;
 public class DefaultActionMethodInvoker implements IActionMethodInvoker {
     @Override
     public Optional<Object> invoke(Method method, Object controller, Object[] params) throws InvocationTargetException, IllegalAccessException {
-        return Optional.ofNullable(method.invoke(controller, params));
+        try {
+            Object res = method.invoke(controller, params);
+            return Optional.ofNullable(res);
+        }
+        catch (Exception e) {
+            return Optional.of(e);
+        }
     }
 }
